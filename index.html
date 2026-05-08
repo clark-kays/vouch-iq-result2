@@ -654,6 +654,74 @@ a:hover { text-decoration: underline; }
   border-radius: 2px;
 }
 
+/* ========== Policies not reviewed ========== */
+
+.scope-caveat {
+  display: flex;
+  gap: 16px;
+  padding: 18px 20px;
+  margin: 16px 0 28px 0;
+  background: var(--vouch-light-mint);
+  border-left: 4px solid var(--vouch-text-green);
+  border-radius: 4px;
+}
+.scope-caveat-label {
+  flex: 0 0 110px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--vouch-text-green);
+  padding-top: 2px;
+}
+.scope-caveat-body {
+  flex: 1;
+  font-size: 14px;
+  color: var(--vouch-navy);
+  line-height: 1.55;
+}
+
+.pnr-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--vouch-light-gray);
+}
+.pnr-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 28%) 1fr;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--vouch-light-gray);
+}
+.pnr-line {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pnr-line-name {
+  font-family: "GT America", "Inter", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--vouch-navy);
+}
+.pnr-limit {
+  font-size: 13px;
+  color: var(--ind-mid);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.pnr-why {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--vouch-navy);
+}
+.pnr-closing {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--vouch-navy);
+}
+
 /* ========== Footer ========== */
 
 .report-footer {
@@ -712,7 +780,7 @@ a:hover { text-decoration: underline; }
     
     <nav class="report-nav" aria-label="Report sections">
       <div class="nav-header">Sections</div>
-      <a class="nav-link" href="#cover" data-target="cover"><span class="nav-num">00</span><span class="nav-label">Cover</span></a><a class="nav-link" href="#recommendation" data-target="recommendation"><span class="nav-num">01</span><span class="nav-label">Our Recommendation</span></a><a class="nav-link" href="#coverage-snapshot" data-target="coverage-snapshot"><span class="nav-num">02</span><span class="nav-label">Coverage Snapshot</span></a><a class="nav-link" href="#biggest-risks" data-target="biggest-risks"><span class="nav-num">03</span><span class="nav-label">Biggest Risks</span></a><a class="nav-link" href="#limits-vs-benchmark" data-target="limits-vs-benchmark"><span class="nav-num">04</span><span class="nav-label">Limits vs. Benchmark</span></a><a class="nav-link" href="#program-structure" data-target="program-structure"><span class="nav-num">05</span><span class="nav-label">Program Structure</span></a>
+      <a class="nav-link" href="#cover" data-target="cover"><span class="nav-num">00</span><span class="nav-label">Cover</span></a><a class="nav-link" href="#recommendation" data-target="recommendation"><span class="nav-num">01</span><span class="nav-label">Our Recommendation</span></a><a class="nav-link" href="#coverage-snapshot" data-target="coverage-snapshot"><span class="nav-num">02</span><span class="nav-label">Coverage Snapshot</span></a><a class="nav-link" href="#biggest-risks" data-target="biggest-risks"><span class="nav-num">03</span><span class="nav-label">Biggest Risks</span></a><a class="nav-link" href="#limits-vs-benchmark" data-target="limits-vs-benchmark"><span class="nav-num">04</span><span class="nav-label">Limits vs. Benchmark</span></a><a class="nav-link" href="#program-structure" data-target="program-structure"><span class="nav-num">05</span><span class="nav-label">Program Structure</span></a><a class="nav-link" href="#policies-not-reviewed" data-target="policies-not-reviewed"><span class="nav-num">06</span><span class="nav-label">Outside This Review</span></a>
       <button class="nav-print" type="button" data-print>
         <span aria-hidden="true">⎙</span> Print / Save PDF
       </button>
@@ -727,7 +795,7 @@ a:hover { text-decoration: underline; }
         <h1 class="display-headline">
           <span class="hl-block">CoinX USA</span>
         </h1>
-        <p class="cover-subhead">First-look coverage analysis of CoinX&#x27;s current Web3 Protection Policy, benchmarked against Vouch&#x27;s recommendations for Tech E&amp;O and Cyber programs.</p>
+        <p class="cover-subhead">First-look coverage analysis of CoinX&#x27;s Web3 Protection Policy, benchmarked against Vouch&#x27;s recommendations for Tech E&amp;O and Cyber programs.</p>
         <div class="cover-meta-grid">
           
         <div class="cover-meta-card">
@@ -754,8 +822,8 @@ a:hover { text-decoration: underline; }
       <h2 class="section-headline"><span class="hl-block">Our Recommendation</span></h2>
       <div class="section-rule"></div>
 
-      <p class="lede">CoinX&#x27;s program is a Web3 Protection Policy bound through Arthur J Gallagher with United Specialty Insurance Company. It runs 08/19/2025 to 08/19/2026 at a $12,017 total premium. The form does some real work: an 8-hour Cyber business interruption waiting period, $1M Privacy and Network Security Liability, and a standalone Tech E&amp;O tower at $1M with a $25K retention. Compared to where the 2026 market is for a venture-backed web3 platform, several pieces of the program don&#x27;t hold up.</p>
-      <p class="lede">Three structural issues define this analysis. First, every primary tower is bound at $1M, and the loss-prone coverages (Cyber Crime, Public Relations) are sublimited well below that. Second, the form carries a stack of web3-targeted exclusions (Tracking Tech, Biometric, AML, ICO, Transferor Errors) that, taken together, neutralize coverage for several of the highest-frequency claim scenarios in crypto today. Third, three lines Vouch flags as MUST HAVE aren&#x27;t on the program at all: Media Liability, Commercial Crime, and D&amp;O.</p>
+      <p class="lede">CoinX&#x27;s Web3 Protection Policy was bound through Arthur J Gallagher with United Specialty Insurance Company, effective 08/19/2025 to 08/19/2026 at a $12,017 total premium. The form does some real work: an 8-hour Cyber business interruption waiting period, $1M Privacy and Network Security Liability, and a standalone Tech E&amp;O tower at $1M with a $25K retention. Compared to where the 2026 market is for a venture-backed web3 platform, several pieces of the program don&#x27;t hold up. This analysis reviews only the policy provided. Other lines a Vouch-recommended program would include are summarized at the end of the report.</p>
+      <p class="lede">Two structural issues define this analysis. First, every primary tower is bound at $1M, and the loss-prone coverages (Cyber Crime, Public Relations) are sublimited well below that. Second, the form carries a stack of web3-targeted exclusions (Tracking Tech, Biometric, AML, ICO, Transferor Errors) that, taken together, neutralize coverage for several of the highest-frequency claim scenarios in crypto today.</p>
 
       <div class="subhead-eyebrow">Priority recommendations</div>
         <div class="rec-card">
@@ -785,8 +853,8 @@ a:hover { text-decoration: underline; }
         <div class="rec-card">
           <div class="rec-num">4</div>
           <div class="rec-body">
-            <div class="rec-title">Add Media Liability, Commercial Crime, and D&amp;O</div>
-            <div class="rec-detail">All three are Not Applicable on the declarations. Media Liability defends content, brand, and IP claims tied to public web3 promotion (blog, X, podcasts, conference talks). Commercial Crime covers employee dishonesty and forgery, which separation-of-authority controls in a small treasury function rarely close on their own. D&amp;O is the standard backstop for venture-backed companies facing investor, regulator, and employment claims. An uninsured securities-related action is one of the more common dilution events at this stage.</div>
+            <div class="rec-title">Negotiate breadth on the Tracking Tech, Biometric, and Transferor Errors exclusions</div>
+            <div class="rec-detail">These three endorsements remove some of the most active claim sources for web3 platforms today. A blanket exclusion can sometimes be reshaped into a sublimited carve-back that preserves coverage for the core operating use cases while excluding the most adverse fact patterns. Worth raising with the underwriter at renewal.</div>
           </div>
         </div>
         
@@ -811,7 +879,7 @@ a:hover { text-decoration: underline; }
       <h2 class="section-headline"><span class="hl-block">Your Coverage Snapshot</span></h2>
       <div class="section-rule"></div>
 
-      <p class="lede">CoinX&#x27;s program is a Web3 Protection Policy through United Specialty Insurance Company, bound through Arthur J Gallagher Risk Management Services for the 08/19/2025 to 08/19/2026 term. Each tower is at $1M aggregate with $15K to $25K retentions. Tech E&amp;O is purchased at $1M. Media, D&amp;O, and Commercial Crime are not applicable on the declarations. Seven web3-targeted exclusions on the form materially shape what&#x27;s actually covered when a claim hits.</p>
+      <p class="lede">This snapshot covers the Web3 Protection Policy CoinX provided to Vouch for review (United Specialty Insurance Company, bound through Arthur J Gallagher Risk Management Services for the 08/19/2025 to 08/19/2026 term). Each tower is at $1M aggregate with $15K to $25K retentions. Tech E&amp;O is purchased at $1M. Seven web3-targeted exclusions on the form materially shape what&#x27;s actually covered when a claim hits.</p>
 
       
         <div class="snapshot-group">
@@ -1142,66 +1210,8 @@ a:hover { text-decoration: underline; }
           </table>
         </div>
         
-        <div class="snapshot-group">
-          
-        <div class="group-header">
-          <div class="group-title">Not Purchased</div>
-          
-          <div class="group-subtitle">Lines marked Not Applicable on the declarations</div>
-        </div>
-        
-          <table class="snapshot-table">
-            <thead>
-              <tr>
-                <th class="col-area">Coverage area</th>
-                <th class="col-status">Status</th>
-                <th class="col-note">Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-not-purchased-media-liability" aria-expanded="false" aria-controls="row-not-purchased-media-liability-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Media Liability</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Not purchased</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-not-purchased-media-liability-detail" data-detail-for="row-not-purchased-media-liability">
-                  <td colspan="3"><div class="snapshot-detail-inner">Defends libel, slander, and IP claims tied to content CoinX publishes (blog, social, marketing, conference talks). Vouch flags this MUST HAVE for tech companies with public media exposure.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-not-purchased-commercial-crime-employee-theft" aria-expanded="false" aria-controls="row-not-purchased-commercial-crime-employee-theft-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Commercial Crime, Employee Theft</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Not purchased</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-not-purchased-commercial-crime-employee-theft-detail" data-detail-for="row-not-purchased-commercial-crime-employee-theft">
-                  <td colspan="3"><div class="snapshot-detail-inner">First-dollar protection against employee dishonesty. Especially important in a small finance / treasury function where separation-of-authority controls are difficult to fully implement.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Commercial Crime, Forgery / Alteration</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">Not purchased</td>
-            </tr>
-            
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-not-purchased-d-amp-o-insured-person-amp-company-liability" aria-expanded="false" aria-controls="row-not-purchased-d-amp-o-insured-person-amp-company-liability-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>D&amp;O, Insured Person &amp; Company Liability</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Not purchased</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-not-purchased-d-amp-o-insured-person-amp-company-liability-detail" data-detail-for="row-not-purchased-d-amp-o-insured-person-amp-company-liability">
-                  <td colspan="3"><div class="snapshot-detail-inner">No D&amp;O on the program. For a venture-backed company at this stage, an uninsured securities-related action is a meaningful equity-dilution event.</div></td>
-                </tr>
-                
-            </tbody>
-          </table>
-        </div>
-        
 
-      <div class="status-key">STRONG = aligned with Vouch&#x27;s recommended best practice. ADEQUATE = meets minimum, room to improve. GAP = below benchmark or missing coverage to negotiate at renewal. CRITICAL = material exposure unaddressed.</div>
+      <div class="status-key">STRONG = aligned with Vouch&#x27;s recommended best practice. ADEQUATE = meets minimum, room to improve. GAP = below benchmark, negotiate at renewal. CRITICAL = material exposure unaddressed on the form reviewed.</div>
     </section>
     
 
@@ -1256,7 +1266,7 @@ a:hover { text-decoration: underline; }
         <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-treasury-funds-transfer-fraud" aria-expanded="false" aria-controls="risk-treasury-funds-transfer-fraud-detail">
           <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Treasury / Funds Transfer Fraud</strong></td>
           <td class="risk-scenario">A treasury employee receives a vendor-impersonation email and approves a $1.2M wire. Or a BEC chain compromises a multi-step internal approval. Loss is direct, unrecoverable, and outside the wire-callback window.</td>
-          <td class="risk-response">Capped at $350K via the Cyber Crime sublimit. Above that, the loss is uninsured.</td>
+          <td class="risk-response">Capped at $350K via the Cyber Crime sublimit. Above that, the loss is uninsured under this policy.</td>
         </tr>
         
             <tr class="risk-detail" id="risk-treasury-funds-transfer-fraud-detail" data-detail-for="risk-treasury-funds-transfer-fraud">
@@ -1286,7 +1296,7 @@ a:hover { text-decoration: underline; }
         <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-period-of-restoration-cap" aria-expanded="false" aria-controls="risk-period-of-restoration-cap-detail">
           <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Period of Restoration Cap</strong></td>
           <td class="risk-scenario">A complex breach or extortion event runs longer than 30 days through forensics, recovery, and revenue restoration. The carrier ceases BI / CBI payments at day 31.</td>
-          <td class="risk-response">Restoration capped at 30 days across all BI / CBI lines. Loss tail beyond 30 days is uninsured.</td>
+          <td class="risk-response">Restoration capped at 30 days across all BI / CBI lines. Loss tail beyond 30 days is uninsured under this policy.</td>
         </tr>
         
             <tr class="risk-detail" id="risk-period-of-restoration-cap-detail" data-detail-for="risk-period-of-restoration-cap">
@@ -1300,7 +1310,7 @@ a:hover { text-decoration: underline; }
           <div class="chart-card">
             <canvas id="radarChart" aria-label="Inherent risk vs current coverage radar chart"></canvas>
           </div>
-          <div class="chart-caption">Inherent risk vs. current coverage strength on a 0 to 10 scale. Coverage is weakest on the exclusions that target CoinX&#x27;s core web3 operations.</div>
+          <div class="chart-caption">Inherent risk vs. current coverage strength on a 0 to 10 scale. The policy holds up on the standard Cyber bench items (left side) and falls off sharply on the web3-specific exposures (right side).</div>
         </div>
         
     </section>
@@ -1311,7 +1321,7 @@ a:hover { text-decoration: underline; }
       <h2 class="section-headline"><span class="hl-block">Your Limits vs. Benchmark</span></h2>
       <div class="section-rule"></div>
 
-      <p class="lede">For a venture-backed web3 platform at CoinX&#x27;s stage, Vouch&#x27;s recommendations benchmark total combined limits at $5M to $10M. That&#x27;s structured across separate Tech E&amp;O and Cyber towers, with affirmative coverage on the lines the current form excludes. CoinX&#x27;s program totals $1M per primary tower with three benchmarked lines unpurchased entirely.</p>
+      <p class="lede">For a venture-backed web3 platform at CoinX&#x27;s stage, Vouch benchmarks the lines on this policy at $3M to $5M per primary tower, with the Cyber Crime sublimit raised to the full Cyber aggregate. The chart below compares the current limits on the Web3 Protection Policy provided for review against Vouch&#x27;s recommended ranges for those same lines.</p>
 
       
         <div class="benchmark-wrapper">
@@ -1327,7 +1337,7 @@ a:hover { text-decoration: underline; }
       
         <div class="callout">
           <div class="callout-title">Most consequential limit gap: Cyber Crime / Funds Transfer Fraud sublimit</div>
-          <div class="callout-body">The $350K Cyber Crime sublimit is the single most negotiable item on the program. Vouch flags $250K as the typical default and the $350K endorsement as incremental at best. Typical loss range for a successful BEC or vendor-impersonation attack on a web3 treasury is $500K to $2M. Pushing the sublimit to the full $1M Cyber aggregate (or higher with a dedicated Crime tower) is normally a single-endorsement negotiation and doesn&#x27;t require remarketing the policy.</div>
+          <div class="callout-body">The $350K Cyber Crime sublimit is the single most negotiable item on the program. Vouch identifies $250K as the typical default and the $350K endorsement as incremental at best. Typical loss range for a successful BEC or vendor-impersonation attack on a web3 treasury is $500K to $2M. Pushing the sublimit to the full $1M Cyber aggregate (or higher with a dedicated Crime tower) is normally a single-endorsement negotiation and doesn&#x27;t require remarketing the policy.</div>
         </div>
         
     </section>
@@ -1338,7 +1348,7 @@ a:hover { text-decoration: underline; }
       <h2 class="section-headline"><span class="hl-block">Recommended Program Structure</span></h2>
       <div class="section-rule"></div>
 
-      <p class="lede">The current program is six $1M towers with $15K to $25K retentions, riding a single carrier (United Specialty Insurance Company) through a wholesaler (Corix). The recommended structure splits Tech E&amp;O and Cyber into separately stacked towers, fills the three unpurchased MUST HAVE lines (Media, Commercial Crime, D&amp;O), adds a specialty digital-asset / specie layer to address the Transferor Errors and ICO exclusions, and renegotiates the most consequential exclusions before binding.</p>
+      <p class="lede">The policy provided for review is built around six $1M towers with $15K to $25K retentions, riding a single carrier (United Specialty Insurance Company) through a wholesaler (Corix). The recommended structure splits Tech E&amp;O and Cyber into separately stacked towers, lifts the Cyber Crime sublimit, extends the Period of Restoration, and renegotiates the most consequential exclusions before binding.</p>
 
       
         <div class="program-table">
@@ -1375,37 +1385,19 @@ a:hover { text-decoration: underline; }
             <div class="prog-row">
               <div class="prog-cell prog-current">Cyber Crime sublimit, $350K</div>
               <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Commercial Crime, $1M to $2M (employee theft + forgery)</div>
+              <div class="prog-cell prog-recommended">Privacy Regulatory, $2M to $5M</div>
             </div>
             
             <div class="prog-row">
-              <div class="prog-cell prog-current">Media Liability, NOT PURCHASED</div>
+              <div class="prog-cell prog-current">Privacy Regulatory, $1M</div>
               <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Media Liability, $1M to $2M (standalone)</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Commercial Crime, NOT PURCHASED</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Specie / Digital Asset, $2M to $5M (Evertas, Relm, Coincover)</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">D&amp;O, NOT PURCHASED</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">D&amp;O, $3M to $5M (with EPL where applicable)</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Specie / Digital Asset, NOT PURCHASED</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Tracking Tech, AML, Transferor Errors, affirmative or carve-back where possible</div>
+              <div class="prog-cell prog-recommended">Web3 exclusions (Tracking Tech, AML, Transferor Errors), affirmative or carve-back where possible</div>
             </div>
             
             <div class="prog-row">
               <div class="prog-cell prog-current">Tracking Tech, Biometric, AML, ICO, Transferor Errors, War / Cyber Operation, EXCLUDED</div>
               <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">—</div>
+              <div class="prog-cell prog-recommended">Specie / Digital Asset, considered separately if CoinX holds or transmits assets</div>
             </div>
             
         </div>
@@ -1426,7 +1418,7 @@ a:hover { text-decoration: underline; }
             <tr>
               <td class="plan-when">30 to 60 days · June to July 2026</td>
               <td class="plan-action"><span class="plan-pill">Negotiate</span></td>
-              <td class="plan-detail">On the existing program (or its replacement): (1) push Cyber Crime sublimit to $1M+, (2) extend Period of Restoration to 180 days, (3) add cyberterrorism carve-back, (4) negotiate breadth on Tracking Tech, Biometric, and Transferor Errors exclusions, (5) restore prior-acts retro date if continuity allows. In parallel, submit specie / digital-asset application to Evertas or Relm for $2M to $5M custody coverage. Output: bindable terms or a clear remarketing path.</td>
+              <td class="plan-detail">On the existing program (or its replacement): (1) push Cyber Crime sublimit to $1M+, (2) extend Period of Restoration to 180 days, (3) add cyberterrorism carve-back, (4) negotiate breadth on Tracking Tech, Biometric, and Transferor Errors exclusions, (5) restore prior-acts retro date if continuity allows. Output: bindable terms or a clear remarketing path.</td>
             </tr>
             
             <tr>
@@ -1445,6 +1437,83 @@ a:hover { text-decoration: underline; }
     </section>
     
 
+    <section class="report-section section-pnr" id="policies-not-reviewed">
+      <div class="section-eyebrow">06 — Coverage Lines Outside This Review</div>
+      <h2 class="section-headline"><span class="hl-block">Coverage Lines Outside This Review</span></h2>
+      <div class="section-rule"></div>
+
+      <p class="lede">A complete insurance program for a venture-backed web3 platform typically extends beyond the lines covered by this Web3 Protection Policy. The lines below are ones a Vouch-recommended program would include for a company of CoinX&#x27;s apparent type and stage.</p>
+      
+        <div class="scope-caveat">
+          <div class="scope-caveat-label">Scope note</div>
+          <div class="scope-caveat-body">Vouch was provided only the Web3 Protection Policy reviewed in this report. CoinX may already carry one or more of these lines under separate carriers or programs not shared with Vouch. Where that&#x27;s the case, the relevant line should be reviewed against the same benchmarks. Where it isn&#x27;t, the line is a coverage gap.</div>
+        </div>
+        
+
+      <div class="pnr-table">
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">Directors &amp; Officers Liability</div>
+            <div class="pnr-limit">$3M to $5M</div>
+          </div>
+          <div class="pnr-why">Defends individual directors, officers, and the company itself against claims by investors, regulators, employees, and counterparties. Standard backstop for any venture-backed company. Securities-related claims and regulatory inquiries are the most common loss types at this stage.</div>
+        </div>
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">Employment Practices Liability (EPL)</div>
+            <div class="pnr-limit">$1M to $3M</div>
+          </div>
+          <div class="pnr-why">Covers wrongful termination, discrimination, harassment, and related employment claims. Often packaged with D&amp;O at this stage but worth confirming as a separate line item.</div>
+        </div>
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">Commercial Crime / Employee Theft</div>
+            <div class="pnr-limit">$1M to $2M</div>
+          </div>
+          <div class="pnr-why">First-dollar protection against employee dishonesty, forgery, and alteration. Particularly important in a small finance / treasury function where separation-of-authority controls are difficult to fully implement. Distinct from the Cyber Crime sublimit, which addresses external funds-transfer fraud.</div>
+        </div>
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">Standalone Media Liability</div>
+            <div class="pnr-limit">$1M to $2M</div>
+          </div>
+          <div class="pnr-why">Defends libel, slander, copyright, and trademark claims tied to content the company publishes (blog, social, marketing, conference talks, paper-publishing). The Web3 Protection Policy reviewed does not include media coverage. Vouch flags Media as a &#x27;must have&#x27; for tech companies with public media exposure.</div>
+        </div>
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">Specie / Digital Asset Custody</div>
+            <div class="pnr-limit">$2M to $5M</div>
+          </div>
+          <div class="pnr-why">Specialty coverage for theft, loss, or destruction of digital assets, including assets held on behalf of users. The Web3 Protection Policy reviewed does not provide affirmative coverage for digital-asset custody loss. Carriers in this space include Evertas, Relm, and Coincover.</div>
+        </div>
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">General Liability / Property</div>
+            
+          </div>
+          <div class="pnr-why">Standard business owner coverage for premises liability, bodily injury to third parties, and physical property loss. Almost always carried but worth confirming alongside the rest of the program.</div>
+        </div>
+        
+        <div class="pnr-row">
+          <div class="pnr-line">
+            <div class="pnr-line-name">Workers&#x27; Compensation</div>
+            
+          </div>
+          <div class="pnr-why">State-required coverage for employee workplace injury. Required in essentially every state where CoinX has employees.</div>
+        </div>
+        
+      </div>
+
+      <p class="pnr-closing">If any of these lines is already in place, share the policy with Vouch and we&#x27;ll fold it into the same coverage analysis. If not, the lines above are the natural next conversations after the Web3 Protection Policy renewal.</p>
+    </section>
+    
+
       <footer class="report-footer">
         <div class="vouch-mark">VOUCH</div>
         <div>Coverage Analysis Report · prepared by Vouch Insurance Services, Inc.</div>
@@ -1456,8 +1525,8 @@ a:hover { text-decoration: underline; }
 
   <script>
 
-      const radarConfig = {"type": "radar", "data": {"labels": ["Tracking Tech / Pixel Litigation", "AML / Regulatory (FinCEN / OFAC)", "Transferor / User Fraud", "Funds Transfer Fraud / BEC", "Nation-State / Cyber Operation", "Tech E&O / Service Failure", "Ransomware / Business Interrupt", "D&O / Securities"], "datasets": [{"label": "Inherent risk exposure", "data": [9, 9, 9, 8, 7, 7, 7, 7], "borderColor": "#CA6233", "backgroundColor": "#CA623326", "borderWidth": 2, "pointBackgroundColor": "#CA6233", "pointRadius": 3}, {"label": "Current coverage strength", "data": [1, 1, 1, 3, 1, 4, 5, 1], "borderColor": "#1A5745", "backgroundColor": "#3BE0AD33", "borderWidth": 2, "pointBackgroundColor": "#19A078", "pointRadius": 3}]}, "options": {"responsive": true, "maintainAspectRatio": false, "scales": {"r": {"min": 0, "max": 10, "ticks": {"stepSize": 2, "color": "#A8A8A8", "backdropColor": "transparent"}, "grid": {"color": "#EBEAE8"}, "angleLines": {"color": "#EBEAE8"}, "pointLabels": {"color": "#0F1C2C", "font": {"size": 12, "family": "Inter, GT America, Arial, sans-serif"}}}}, "plugins": {"legend": {"position": "top", "labels": {"color": "#0F1C2C", "font": {"size": 12, "family": "Inter, GT America, Arial, sans-serif"}, "boxWidth": 14}}, "tooltip": {"backgroundColor": "#0F1C2C", "titleColor": "#F7FAF2", "bodyColor": "#F7FAF2", "padding": 10, "cornerRadius": 4}}}};
-      const benchmarkConfig = {"type": "bar", "data": {"labels": ["Tech E&O", "Cyber, 1st Party", "Cyber, 3rd Party Liability", "Cyber Crime / FTF / Soc. Eng.", "Commercial Crime", "Media Liability", "D&O", "Specie / Digital Asset"], "datasets": [{"label": "Recommended range", "data": [[3, 5], [3, 5], [3, 5], [1, 2], [1, 2], [1, 2], [3, 5], [2, 5]], "backgroundColor": "#EDC2A2", "borderColor": "#CA6233", "borderWidth": 1, "borderRadius": 2, "borderSkipped": false, "barPercentage": 0.6, "categoryPercentage": 0.85}, {"label": "Current limit", "data": [1, 1, 1, 0.35, 0, 0, 0, 0], "backgroundColor": "#0F1C2C", "borderColor": "#0F1C2C", "borderWidth": 1, "borderRadius": 2, "barPercentage": 0.6, "categoryPercentage": 0.85}]}, "options": {"indexAxis": "y", "responsive": true, "maintainAspectRatio": false, "scales": {"x": {"beginAtZero": true, "title": {"display": true, "text": "Aggregate limit ($M)", "color": "#0F1C2C"}, "grid": {"color": "#EBEAE8"}, "ticks": {"color": "#0F1C2C"}}, "y": {"grid": {"color": "transparent"}, "ticks": {"color": "#0F1C2C", "font": {"size": 12}}}}, "plugins": {"legend": {"position": "bottom", "labels": {"color": "#0F1C2C", "boxWidth": 14}}, "tooltip": {"backgroundColor": "#0F1C2C", "titleColor": "#F7FAF2", "bodyColor": "#F7FAF2", "padding": 10, "cornerRadius": 4, "callbacks": {}}}}};
+      const radarConfig = {"type": "radar", "data": {"labels": ["Privacy & Regulatory Defense", "Network Security Liability", "Ransomware / Business Interrupt", "Tech E&O / Service Failure", "Funds Transfer Fraud / BEC", "Tracking Tech / Pixel Litigation", "AML / Regulatory (FinCEN, OFAC)", "Transferor / User Fraud"], "datasets": [{"label": "Inherent risk exposure", "data": [8, 7, 7, 7, 8, 8, 8, 8], "borderColor": "#CA6233", "backgroundColor": "#CA623326", "borderWidth": 2, "pointBackgroundColor": "#CA6233", "pointRadius": 3}, {"label": "Current coverage strength", "data": [7, 7, 5, 4, 3, 1, 1, 1], "borderColor": "#1A5745", "backgroundColor": "#3BE0AD33", "borderWidth": 2, "pointBackgroundColor": "#19A078", "pointRadius": 3}]}, "options": {"responsive": true, "maintainAspectRatio": false, "scales": {"r": {"min": 0, "max": 10, "ticks": {"stepSize": 2, "color": "#A8A8A8", "backdropColor": "transparent"}, "grid": {"color": "#EBEAE8"}, "angleLines": {"color": "#EBEAE8"}, "pointLabels": {"color": "#0F1C2C", "font": {"size": 12, "family": "Inter, GT America, Arial, sans-serif"}}}}, "plugins": {"legend": {"position": "top", "labels": {"color": "#0F1C2C", "font": {"size": 12, "family": "Inter, GT America, Arial, sans-serif"}, "boxWidth": 14}}, "tooltip": {"backgroundColor": "#0F1C2C", "titleColor": "#F7FAF2", "bodyColor": "#F7FAF2", "padding": 10, "cornerRadius": 4}}}};
+      const benchmarkConfig = {"type": "bar", "data": {"labels": ["Tech E&O", "Cyber, 1st Party", "Cyber, 3rd Party Liability", "Cyber Crime / FTF / Soc. Eng.", "Privacy Regulatory"], "datasets": [{"label": "Recommended range", "data": [[3, 5], [3, 5], [3, 5], [1, 2], [2, 5]], "backgroundColor": "#EDC2A2", "borderColor": "#CA6233", "borderWidth": 1, "borderRadius": 2, "borderSkipped": false, "barPercentage": 0.6, "categoryPercentage": 0.85}, {"label": "Current limit", "data": [1, 1, 1, 0.35, 1], "backgroundColor": "#0F1C2C", "borderColor": "#0F1C2C", "borderWidth": 1, "borderRadius": 2, "barPercentage": 0.6, "categoryPercentage": 0.85}]}, "options": {"indexAxis": "y", "responsive": true, "maintainAspectRatio": false, "scales": {"x": {"beginAtZero": true, "title": {"display": true, "text": "Aggregate limit ($M)", "color": "#0F1C2C"}, "grid": {"color": "#EBEAE8"}, "ticks": {"color": "#0F1C2C"}}, "y": {"grid": {"color": "transparent"}, "ticks": {"color": "#0F1C2C", "font": {"size": 12}}}}, "plugins": {"legend": {"position": "bottom", "labels": {"color": "#0F1C2C", "boxWidth": 14}}, "tooltip": {"backgroundColor": "#0F1C2C", "titleColor": "#F7FAF2", "bodyColor": "#F7FAF2", "padding": 10, "cornerRadius": 4, "callbacks": {}}}}};
 
       function initCharts() {
         if (typeof Chart === 'undefined') { return; }
