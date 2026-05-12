@@ -1,1623 +1,1213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-industry="tech_startup">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CoinX USA · Coverage Analysis · Vouch</title>
-  <meta name="generator" content="vouch-coverage-report skill" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coinflow Labs — Coverage Report</title>
+  <meta name="description" content="Vouch Coverage Analysis Report for Coinflow Labs">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-:root {
-  --vouch-navy: #0F1C2C;
-  --vouch-taupe: #F7FAF2;
-  --vouch-dark-green: #1A5745;
-  --vouch-green: #3BE0AD;
-  --vouch-text-green: #19A078;
-  --vouch-yellow: #E8FC83;
-  --vouch-blue: #50EAF2;
-  --vouch-gray: #A8A8A8;
-  --vouch-light-gray: #EBEAE8;
-  --vouch-mint: #C7F4E0;
-  --vouch-light-mint: #E5F5EB;
-
-  /* Industry palette is overridden via [data-industry] below */
-  --ind-deep: #1A5745;
-  --ind-mid: #19A078;
-  --ind-light: #C7F4E0;
-
-  /* Status colors */
-  --status-strong: #19A078;
-  --status-adequate: #326CA3;
-  --status-gap-bg: var(--ind-mid);
-  --status-critical: #B23A1F;
-}
-
-[data-industry="tech_startup"] {
-  --ind-deep: #8F2A04;
-  --ind-mid: #CA6233;
-  --ind-light: #EDC2A2;
-}
-[data-industry="healthcare"] {
-  --ind-deep: #4A1F5C;
-  --ind-mid: #7A4FA5;
-  --ind-light: #D6C6E6;
-}
-[data-industry="financial_services"] {
-  --ind-deep: #1A3D75;
-  --ind-mid: #326CA3;
-  --ind-light: #C2D6EB;
-}
-[data-industry="professional_services"] {
-  --ind-deep: #B5851B;
-  --ind-mid: #E3A82B;
-  --ind-light: #F6D98A;
-}
-
-/* ========== Reset & base ========== */
-
+/* ===================== RESET ===================== */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 15px; }
 body {
   margin: 0;
-  background: var(--vouch-taupe);
-  color: var(--vouch-navy);
-  font-family: "GT America", "Inter", Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  background: #F0F1E5;
+  color: #0D1B2A;
+  font-family: "GT America", "Inter", -apple-system, Arial, Helvetica, sans-serif;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
-
-p { margin: 0 0 1em 0; }
-a { color: var(--vouch-text-green); text-decoration: none; }
+p { margin: 0 0 0.85em 0; }
+a { color: #19A078; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-.page-wrap {
-  max-width: 1240px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 48px;
-  padding: 0 32px 96px 32px;
-}
+/* ===================== INDUSTRY PALETTE ===================== */
+[data-industry="tech_startup"]         { --ind-deep:#8F2A04; --ind-mid:#CA6233; --ind-light:#EDC2A2; --rec1:#1E3A2F; --rec2:#C8661A; --rec3:#C8384A; }
+[data-industry="healthcare"]            { --ind-deep:#4A1F5C; --ind-mid:#7A4FA5; --ind-light:#D6C6E6; --rec1:#1E3A2F; --rec2:#7A4FA5; --rec3:#C8384A; }
+[data-industry="financial_services"]    { --ind-deep:#1A3D75; --ind-mid:#326CA3; --ind-light:#C2D6EB; --rec1:#1E3A2F; --rec2:#1A3D75; --rec3:#C8384A; }
+[data-industry="professional_services"] { --ind-deep:#B5851B; --ind-mid:#E3A82B; --ind-light:#F6D98A; --rec1:#1E3A2F; --rec2:#B5851B; --rec3:#C8384A; }
+[data-industry="default"]               { --ind-deep:#1A5745; --ind-mid:#19A078; --ind-light:#C7F4E0; --rec1:#1E3A2F; --rec2:#19A078; --rec3:#326CA3; }
 
-/* ========== Running header ========== */
-
-.running-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--vouch-taupe);
-  border-bottom: 1px solid var(--vouch-light-gray);
-  padding: 14px 32px;
+/* ===================== PAGE HEADER ===================== */
+.page-hdr {
+  padding: 18px 56px 0 56px;
 }
-.running-header-inner {
-  max-width: 1240px;
-  margin: 0 auto;
+.page-hdr-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--vouch-navy);
-  font-weight: 600;
 }
-.running-header .crumb-strip { color: var(--vouch-navy); }
-.running-header .crumb-id { color: var(--vouch-gray); font-weight: 500; letter-spacing: 0.04em; }
-
-.running-header::after {
-  content: "";
-  display: block;
-  height: 3px;
-  background: var(--vouch-green);
-  margin-top: 14px;
-  margin-left: -32px;
-  margin-right: -32px;
-}
-
-/* ========== Sticky nav ========== */
-
-.report-nav {
-  position: sticky;
-  top: 90px;
-  align-self: start;
-  padding-top: 56px;
+.page-hdr-left {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.nav-header {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--vouch-gray);
-  margin-bottom: 12px;
-}
-.nav-link {
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-  padding: 8px 12px;
-  border-left: 2px solid transparent;
-  color: var(--vouch-navy);
-  font-size: 13px;
-  line-height: 1.3;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-  cursor: pointer;
-}
-.nav-link:hover { background: rgba(15, 28, 44, 0.04); text-decoration: none; }
-.nav-link.is-active {
-  border-left-color: var(--ind-mid);
-  color: var(--ind-deep);
-  background: rgba(0, 0, 0, 0.02);
-  font-weight: 600;
-}
-.nav-num {
-  font-family: "Mirador", "Cormorant Garamond", "Spectral", Georgia, serif;
-  font-weight: 600;
-  color: var(--ind-mid);
-  font-size: 14px;
-  width: 22px;
-}
-.nav-print {
-  margin-top: 24px;
-  padding: 10px 14px;
-  font: inherit;
-  font-size: 13px;
-  background: var(--vouch-navy);
-  color: var(--vouch-taupe);
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  letter-spacing: 0.02em;
+  gap: 12px;
 }
-.nav-print:hover { background: #1a2a40; }
-
-/* ========== Display headlines ========== */
-
-.display-headline {
-  font-family: "Mirador", "Cormorant Garamond", "Spectral", Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
-  color: var(--vouch-taupe);
-  margin: 12px 0 28px 0;
-}
-
-.section-headline {
-  font-family: "Mirador", "Cormorant Garamond", "Spectral", Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(40px, 5.2vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--vouch-navy);
-  margin: 8px 0 18px 0;
-}
-
-.hl-block {
-  display: inline;
-  background: var(--vouch-mint);
-  padding: 0 8px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-.cover .hl-block {
-  background: var(--vouch-green);
-  color: var(--vouch-navy);
-}
-
-/* ========== Cover ========== */
-
-.cover {
-  background: var(--vouch-navy);
-  color: var(--vouch-taupe);
-  border-radius: 2px;
-  padding: 80px 56px 64px 56px;
-  margin: 28px 0 64px 0;
-  position: relative;
-  overflow: hidden;
-}
-.cover::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 92% 18%, rgba(80, 234, 242, 0.08), transparent 60%),
-    radial-gradient(ellipse 80% 60% at 6% 90%, rgba(59, 224, 173, 0.10), transparent 65%);
-  pointer-events: none;
-}
-.cover-inner { position: relative; z-index: 1; max-width: 920px; }
-
-.eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--vouch-green);
-  margin-bottom: 4px;
-}
-
-.cover-subhead {
-  font-family: "Mirador", "Cormorant Garamond", Georgia, serif;
-  font-weight: 400;
-  font-size: clamp(20px, 2.4vw, 26px);
-  line-height: 1.4;
-  color: var(--vouch-taupe);
-  max-width: 720px;
-  margin: 0 0 36px 0;
-}
-
-.cover-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  max-width: 720px;
-  margin-bottom: 32px;
-}
-@media (max-width: 720px) { .cover-meta-grid { grid-template-columns: 1fr; } }
-
-.cover-meta-card {
-  background: rgba(247, 250, 242, 0.06);
-  border-left: 3px solid var(--vouch-green);
-  padding: 14px 18px;
-  border-radius: 0 2px 2px 0;
-}
-.cover-meta-label {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--vouch-green);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.cover-meta-value { font-size: 17px; font-weight: 600; color: var(--vouch-taupe); }
-.cover-meta-period { font-size: 13px; color: rgba(247, 250, 242, 0.75); margin-top: 2px; }
-
-.cover-issued {
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: rgba(247, 250, 242, 0.65);
-}
-.cover-divider {
-  height: 2px;
-  width: 64px;
-  background: var(--vouch-green);
-  margin-top: 32px;
-}
-
-/* ========== Sections ========== */
-
-.report-section {
-  scroll-margin-top: 90px;
-  padding: 64px 0 48px 0;
-  border-top: 1px solid transparent;
-}
-.report-section + .report-section {
-  border-top: 1px solid var(--vouch-light-gray);
-}
-
-.section-eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--ind-mid);
-  margin-bottom: 8px;
-}
-
-.subhead-eyebrow {
-  font-size: 12px;
+.analysis-badge {
+  background: #CDDE3D;
+  color: #0D1B2A;
+  font-size: 10px;
+  font-weight: 800;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--ind-mid);
-  margin: 32px 0 14px 0;
-}
-
-.section-rule {
-  height: 3px;
-  width: 80px;
-  background: var(--vouch-green);
-  margin: 18px 0 28px 0;
-}
-
-.lede {
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 860px;
-  margin: 0 0 18px 0;
-  color: var(--vouch-navy);
-}
-
-/* ========== Recommendation cards ========== */
-
-.rec-card {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  background: var(--vouch-light-mint);
+  padding: 3px 8px 2px 8px;
   border-radius: 2px;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-.rec-num {
-  background: var(--ind-mid);
-  color: var(--vouch-taupe);
-  font-family: "Mirador", "Cormorant Garamond", Georgia, serif;
-  font-size: 32px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   line-height: 1;
 }
-.rec-body { padding: 18px 24px; }
-.rec-title {
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--vouch-navy);
-  font-size: 16px;
+.page-hdr-right {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #0D1B2A;
 }
-.rec-detail { color: #2b3a4f; font-size: 15px; line-height: 1.55; }
+.hdr-id { color: #8A8A7A; font-weight: 500; letter-spacing: 0.06em; }
+.page-hdr-rule {
+  margin-top: 16px;
+  height: 1px;
+  background: #C8C9B8;
+}
 
-/* ========== CTA banner ========== */
+/* ===================== PAGE SECTIONS ===================== */
+.page-section {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 48px;
+  border-bottom: 2px solid #D8D9CC;
+  position: relative;
+}
+.page-section:last-child { border-bottom: none; }
+.section-body { padding: 40px 56px 16px 56px; flex: 1; }
+.page-num {
+  position: absolute;
+  bottom: 18px;
+  left: 56px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #8A8A7A;
+}
 
+/* ===================== COVER ===================== */
+.cover-page { background: #F0F1E5; }
+.cover-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 48px 56px 24px 56px;
+  flex: 1;
+}
+.cover-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #0D1B2A;
+  margin-bottom: 12px;
+}
+.cover-headline {
+  font-family: "Mirador","Cormorant Garamond","Spectral",Georgia,serif;
+  font-weight: 600;
+  font-size: clamp(42px,5.5vw,72px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #0D1B2A;
+  margin: 0 0 20px 0;
+}
+.cover-subhead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #2A3A4A;
+  max-width: 520px;
+  margin: 0;
+}
+.cover-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  padding-top: 8px;
+  text-align: right;
+}
+.cover-meta-block { display: flex; flex-direction: column; gap: 2px; }
+.cover-meta-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #0D1B2A;
+}
+.cover-meta-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0D1B2A;
+}
+.cover-meta-sub { font-size: 12px; color: #5A6A7A; }
+
+/* dot field */
+.cover-dot-field {
+  position: absolute;
+  bottom: 48px;
+  right: 0;
+  pointer-events: none;
+  overflow: hidden;
+  width: 500px;
+  opacity: 0.7;
+}
+.dot-svg { display: block; }
+
+/* ===================== TWO-COL LAYOUTS ===================== */
+.two-col {
+  display: grid;
+  gap: 48px;
+  align-items: start;
+}
+.two-col .col-left  { min-width: 0; }
+.two-col .col-right { min-width: 0; }
+
+/* recommendation: 45/55 */
+.two-col:not(.risks-layout):not(.bench-layout):not(.prog-layout) {
+  grid-template-columns: 5fr 7fr;
+}
+/* biggest risks: 40/60 */
+.risks-layout { grid-template-columns: 4fr 6fr; }
+/* benchmark: 35/65 */
+.bench-layout { grid-template-columns: 4fr 6fr; }
+/* program structure: 38/62 */
+.prog-layout { grid-template-columns: 4fr 6fr; }
+
+/* ===================== HEADINGS ===================== */
+.section-headline {
+  font-family: "Mirador","Cormorant Garamond","Spectral",Georgia,serif;
+  font-weight: 600;
+  font-size: clamp(32px,4vw,52px);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: #0D1B2A;
+  margin: 0 0 20px 0;
+}
+.body-text { font-size: 13.5px; line-height: 1.6; color: #1A2A3A; }
+.body-text.small { font-size: 13px; }
+.body-text p, .body-text { margin-bottom: 0.8em; }
+.section-intro { font-size: 13.5px; line-height: 1.6; color: #1A2A3A; margin: 12px 0 0 0; }
+
+/* ===================== RECOMMENDATION CARDS ===================== */
+.rec-card {
+  margin-bottom: 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #D8D9CC;
+}
+.rec-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  color: #fff;
+}
+.rec-num {
+  font-family: "Mirador","Cormorant Garamond",Georgia,serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+.rec-card-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fff;
+  line-height: 1.3;
+}
+.rec-card-body {
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  background: #fff;
+  color: #1A2A3A;
+}
+
+/* CTA banner */
 .cta-banner {
-  background: var(--vouch-navy);
-  color: var(--vouch-green);
-  padding: 22px 28px;
-  border-radius: 2px;
-  margin: 36px 0;
+  background: #0D1B2A;
+  color: #3BE0AD;
+  padding: 16px 20px;
+  border-radius: 3px;
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 .cta-text {
-  font-family: "Mirador", "Cormorant Garamond", Georgia, serif;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--vouch-green);
+  font-size: 13px;
+  color: #3BE0AD;
   flex: 1 1 auto;
-  min-width: 240px;
 }
-.cta-button {
-  background: var(--vouch-green);
-  color: var(--vouch-navy);
-  padding: 12px 22px;
+.cta-btn {
+  background: #3BE0AD;
+  color: #0D1B2A;
+  padding: 9px 18px;
   border-radius: 2px;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   text-decoration: none;
+  flex-shrink: 0;
 }
-.cta-button:hover { background: #2bcfa1; text-decoration: none; }
+.cta-btn:hover { background: #2ECDA0; text-decoration: none; }
 
-/* ========== Coverage snapshot ========== */
-
-.snapshot-group { margin: 28px 0 28px 0; }
-.group-header {
-  background: var(--vouch-navy);
-  color: var(--vouch-taupe);
-  padding: 14px 20px;
-  border-radius: 2px 2px 0 0;
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-.group-title {
-  font-weight: 700;
+/* standalone CTA */
+.cta-standalone {
+  display: inline-block;
+  background: #3BE0AD;
+  color: #0D1B2A;
+  padding: 12px 22px;
+  border-radius: 3px;
+  font-weight: 800;
   font-size: 13px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  margin-top: 20px;
+  line-height: 1.4;
+  text-align: center;
+}
+.cta-standalone:hover { background: #2ECDA0; text-decoration: none; }
+
+/* ===================== COVERAGE SNAPSHOT ===================== */
+.snapshot-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 16px;
+}
+.snapshot-col { min-width: 0; }
+.snapshot-group { margin-bottom: 20px; }
+.group-hdr {
+  background: #0D1B2A;
+  color: #F0F1E5;
+  padding: 8px 14px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.group-limit {
-  color: var(--vouch-green);
-  font-size: 13px;
+.group-limit { color: #3BE0AD; font-weight: 600; }
+.group-subtitle {
+  background: #1A2A3A;
+  color: #A8B0B8;
+  padding: 5px 14px;
+  font-size: 10.5px;
   letter-spacing: 0.06em;
 }
-.group-subtitle {
-  color: rgba(247, 250, 242, 0.75);
-  font-size: 12px;
-}
-
-.snapshot-table, .risk-table, .plan-table {
+.snap-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
-  border: 1px solid var(--vouch-light-gray);
-  border-radius: 0 0 2px 2px;
-  overflow: hidden;
-  font-size: 14px;
-}
-.snapshot-table thead th, .risk-table thead th, .plan-table thead th {
-  background: var(--vouch-navy);
-  color: var(--vouch-taupe);
-  text-align: left;
-  padding: 10px 14px;
   font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 600;
+  background: #fff;
+  border: 1px solid #D8D9CC;
+  border-top: none;
 }
-.snapshot-table td, .risk-table td, .plan-table td {
-  padding: 12px 14px;
-  border-top: 1px solid var(--vouch-light-gray);
-  vertical-align: top;
-}
-.snapshot-row.is-expandable, .risk-row.is-expandable { cursor: pointer; }
-.snapshot-row.is-expandable:hover, .risk-row.is-expandable:hover { background: var(--vouch-light-mint); }
-.snapshot-detail, .risk-detail { display: none; background: var(--vouch-light-mint); }
-.snapshot-detail.is-open, .risk-detail.is-open { display: table-row; }
-.snapshot-detail-inner, .risk-detail-inner {
-  padding: 4px 8px 8px 32px;
-  font-size: 13.5px;
-  color: #2b3a4f;
-  line-height: 1.55;
-}
-.kicker {
-  display: inline-block;
-  font-size: 11px;
+.snap-table thead th {
+  background: #EFF0E5;
+  color: #0D1B2A;
+  font-size: 10px;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-weight: 700;
-  color: var(--ind-mid);
-  margin-right: 8px;
+  text-align: left;
+  padding: 7px 10px;
+  border-bottom: 1px solid #D8D9CC;
+}
+.snap-table td {
+  padding: 7px 10px;
+  border-top: 1px solid #EFF0E5;
+  vertical-align: top;
+}
+.snap-area { width: 40%; }
+.snap-status { width: 80px; white-space: nowrap; }
+.snap-note { color: #3A4A5A; }
+.snap-row.is-expandable { cursor: pointer; }
+.snap-row.is-expandable:hover { background: #F7F8F2; }
+.snap-detail { display: none; background: #F7F8F2; }
+.snap-detail.is-open { display: table-row; }
+.snap-detail-inner {
+  padding: 5px 10px 8px 24px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #2A3A4A;
 }
 
-.col-area, .snap-area { width: 38%; }
-.col-status, .snap-status { width: 130px; white-space: nowrap; }
-.snap-area .chev {
+/* ===================== PILLS ===================== */
+.pill {
   display: inline-block;
-  margin-right: 6px;
-  color: var(--ind-mid);
-  transition: transform 0.18s ease;
-  font-size: 14px;
-}
-.snapshot-row[aria-expanded="true"] .chev,
-.risk-row[aria-expanded="true"] .chev {
-  transform: rotate(90deg);
-}
-
-.status-pill {
-  display: inline-block;
-  padding: 4px 10px;
-  font-size: 11px;
-  font-weight: 700;
+  padding: 3px 8px;
+  font-size: 9.5px;
+  font-weight: 800;
   letter-spacing: 0.10em;
   border-radius: 2px;
   color: #fff;
   white-space: nowrap;
+  text-transform: uppercase;
 }
-.status-strong { background: var(--status-strong); }
-.status-adequate { background: var(--status-adequate); }
-.status-gap { background: var(--ind-mid); }
-.status-critical { background: var(--status-critical); }
+.status-strong   { background: #19A078; }
+.status-adequate { background: #326CA3; }
+.status-gap      { background: #D4962A; }
+.status-critical { background: #D0433A; }
 
+.chev { display: inline-block; margin-right: 4px; color: #8A8A7A; transition: transform 0.15s; font-size: 11px; }
+.chev-space { display: inline-block; width: 14px; }
+.snap-row[aria-expanded="true"] .chev,
+.risk-row[aria-expanded="true"] .chev { transform: rotate(90deg); }
+
+/* ===================== STATUS KEY ===================== */
 .status-key {
-  margin-top: 18px;
-  font-size: 12.5px;
-  color: var(--vouch-navy);
+  margin-top: 14px;
+  font-size: 10.5px;
+  color: #5A6A7A;
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.status-key .status-pill { margin-right: 6px; }
-
-/* ========== Risk table ========== */
-
-.risk-table { margin-top: 24px; }
-.risk-name { width: 22%; }
-.risk-name .chev {
-  display: inline-block;
-  margin-right: 6px;
-  color: var(--ind-mid);
-  transition: transform 0.18s ease;
-  font-size: 14px;
+.key-label {
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  font-size: 9.5px;
+  color: #0D1B2A;
+  text-transform: uppercase;
 }
-.risk-scenario { width: 39%; }
-.risk-response { width: 39%; }
 
-/* ========== Charts ========== */
-
-.chart-card {
+/* ===================== BIGGEST RISKS TABLE ===================== */
+.risks-right { display: flex; flex-direction: column; }
+.risk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
   background: #fff;
-  border: 1px solid var(--vouch-light-gray);
-  border-radius: 2px;
-  padding: 24px;
-  margin-top: 28px;
-  height: 460px;
-  position: relative;
+  border: 1px solid #D8D9CC;
 }
-.chart-card--tall { height: 480px; }
-.chart-caption {
-  margin-top: 10px;
-  font-size: 12.5px;
-  color: var(--vouch-gray);
-  font-style: italic;
+.risk-table thead th {
+  background: #EFF0E5;
+  color: #0D1B2A;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid #D8D9CC;
+}
+.th-risk { width: 22%; }
+.th-scenario { width: 44%; }
+.th-response { width: 34%; }
+.risk-table td {
+  padding: 10px 12px;
+  border-top: 1px solid #EFF0E5;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.risk-name { color: #0D1B2A; }
+.risk-scenario { color: #2A3A4A; }
+.risk-response { color: #2A3A4A; }
+.risk-row.is-expandable { cursor: pointer; }
+.risk-row.is-expandable:hover { background: #F7F8F2; }
+.risk-detail-row { display: none; background: #F7F8F2; }
+.risk-detail-row.is-open { display: table-row; }
+.kicker {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A8A7A;
+  margin-right: 8px;
 }
 
-.benchmark-legend {
-  margin-top: 12px;
-  font-size: 12.5px;
-  color: var(--vouch-navy);
+/* radar */
+.radar-wrapper { margin-top: 20px; }
+.radar-canvas { width: 100%; height: 280px !important; }
+.chart-caption { font-size: 11px; color: #8A8A7A; margin-top: 8px; line-height: 1.4; }
+
+/* ===================== BENCHMARK ===================== */
+.bench-callout {
+  background: #CDDE3D;
+  border-radius: 3px;
+  padding: 16px 18px;
+  margin-top: 20px;
+}
+.bench-callout-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #0D1B2A;
+  margin-bottom: 8px;
+}
+.bench-callout-body { font-size: 12.5px; line-height: 1.55; color: #0D1B2A; }
+.bench-chart-wrap { display: flex; flex-direction: column; }
+.bench-canvas { width: 100%; height: 380px !important; }
+.bench-legend {
   display: flex;
   align-items: center;
   gap: 18px;
-  flex-wrap: wrap;
+  font-size: 11px;
+  color: #3A4A5A;
+  margin-top: 10px;
 }
-.legend-swatch {
+.leg-swatch {
   display: inline-block;
-  width: 16px;
-  height: 12px;
-  margin-right: 6px;
-  border-radius: 1px;
+  width: 20px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
   vertical-align: middle;
 }
-.swatch-current { background: var(--vouch-navy); }
-.swatch-recommended { background: var(--ind-light); border: 1px solid var(--ind-mid); }
+.swatch-recommended { background: #3BE0AD55; border: 1px solid #19A078; }
+.swatch-current     { background: #0D1B2A; }
 
-/* ========== Callout (limit gap) ========== */
-
-.callout {
-  border-left: 4px solid var(--vouch-green);
-  background: var(--vouch-light-mint);
-  padding: 18px 22px;
-  border-radius: 0 2px 2px 0;
-  margin: 28px 0 0 0;
+/* ===================== PROGRAM STRUCTURE ===================== */
+.prog-table { border: 1px solid #D8D9CC; border-radius: 3px; overflow: hidden; }
+.prog-headers {
+  display: grid;
+  grid-template-columns: 1fr 28px 1fr;
+  background: #F7F8F2;
+  border-bottom: 1px solid #D8D9CC;
 }
-.callout-title {
-  font-weight: 700;
-  color: var(--vouch-navy);
-  margin-bottom: 6px;
-  font-size: 15px;
+.prog-hdr { padding: 10px 14px; }
+.prog-hdr-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #0D1B2A;
 }
-.callout-body { color: #2b3a4f; font-size: 14.5px; line-height: 1.55; }
+.prog-hdr-sub { font-size: 11.5px; color: #5A6A7A; margin-top: 2px; }
+.prog-arrow-hdr { display: flex; align-items: center; justify-content: center; color: #8A8A7A; }
 
-/* ========== Program structure (current vs recommended) ========== */
-
-.program-table {
-  margin-top: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 .prog-row {
   display: grid;
-  grid-template-columns: 1fr 32px 1fr;
-  gap: 12px;
-  align-items: center;
+  grid-template-columns: 1fr 28px 1fr;
+  border-top: 1px solid #EFF0E5;
 }
+.prog-row:first-of-type { border-top: none; }
 .prog-cell {
-  background: #fff;
-  border: 1px solid var(--vouch-light-gray);
-  padding: 10px 16px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #0D1B2A;
   border-radius: 2px;
-  font-size: 14px;
-}
-.prog-current { background: var(--ind-light); border-color: var(--ind-mid); }
-.prog-recommended { background: var(--vouch-navy); color: var(--vouch-taupe); border-color: var(--vouch-navy); font-weight: 600; }
-.prog-arrow {
+  margin: 4px 6px;
   text-align: center;
-  font-size: 18px;
-  color: var(--vouch-gray);
 }
-.prog-header .prog-cell {
-  background: transparent;
-  border: none;
-  padding: 0 0 8px 0;
-}
-.prog-header .prog-current { color: var(--ind-deep); }
-.prog-header .prog-recommended { color: var(--vouch-navy); background: transparent; }
-.prog-col-title {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--ind-mid);
-  margin-bottom: 2px;
-}
-.prog-col-sub {
-  font-style: italic;
-  color: var(--vouch-gray);
-  font-size: 13px;
-}
-.prog-header .prog-recommended .prog-col-title { color: var(--vouch-text-green); }
-
-/* ========== Action plan ========== */
-
-.plan-table { margin-top: 14px; }
-.plan-when { width: 18%; font-weight: 700; }
-.plan-action { width: 12%; }
-.plan-pill {
-  display: inline-block;
-  padding: 4px 10px;
-  background: var(--vouch-green);
-  color: var(--vouch-navy);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 2px;
-}
-
-/* ========== Policies not reviewed ========== */
-
-.scope-caveat {
+.prog-arrow {
   display: flex;
-  gap: 16px;
-  padding: 18px 20px;
-  margin: 16px 0 28px 0;
-  background: var(--vouch-light-mint);
-  border-left: 4px solid var(--vouch-text-green);
-  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  color: #8A8A7A;
+  font-size: 14px;
+  font-weight: 300;
 }
-.scope-caveat-label {
-  flex: 0 0 110px;
-  font-size: 11px;
+.prog-purchased   { background: #D4F4E8; color: #0D1B2A; }
+.prog-not-purchased { background: #FDDDD8; color: #7A1F1A; }
+.prog-excluded    { background: #FDDDD8; color: #7A1F1A; }
+.prog-rec         { background: #F0F1E5; color: #0D1B2A; }
+
+/* ===================== ACTION PLAN ===================== */
+.plan-section { padding: 0 56px 28px 56px; }
+.plan-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #0D1B2A;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  background: #fff;
+  border: 1px solid #D8D9CC;
+}
+.plan-table thead th {
+  background: #0D1B2A;
+  color: #F0F1E5;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 12px;
+}
+.plan-table td {
+  padding: 10px 12px;
+  border-top: 1px solid #EFF0E5;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.plan-when { color: #5A6A7A; font-size: 11.5px; white-space: nowrap; width: 220px; }
+.plan-badge {
+  display: inline-block;
+  background: #0D1B2A;
+  color: #3BE0AD;
+  padding: 3px 9px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+/* ===================== T&C ===================== */
+.tc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.tc-card {
+  background: #fff;
+  border: 1px solid #D8D9CC;
+  border-radius: 3px;
+  padding: 14px 16px;
+}
+.tc-label {
+  font-size: 10px;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-weight: 700;
-  color: var(--vouch-text-green);
-  padding-top: 2px;
+  color: #5A6A7A;
+  margin-bottom: 6px;
 }
-.scope-caveat-body {
-  flex: 1;
-  font-size: 14px;
-  color: var(--vouch-navy);
-  line-height: 1.55;
+.tc-val { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.tc-ok   { color: #19A078; }
+.tc-warn { color: #D0433A; }
+.tc-na   { color: #8A8A7A; }
+.tc-note { font-size: 11.5px; color: #3A4A5A; line-height: 1.4; }
+.tc-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
 }
 
-.pnr-table {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-top: 1px solid var(--vouch-light-gray);
+/* ===================== POLICIES NOT REVIEWED ===================== */
+.scope-caveat {
+  background: #F7F8F2;
+  border-left: 3px solid #D8D9CC;
+  padding: 10px 14px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: #2A3A4A;
 }
+.pnr-table { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
 .pnr-row {
   display: grid;
-  grid-template-columns: minmax(220px, 28%) 1fr;
-  gap: 24px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--vouch-light-gray);
-}
-.pnr-line {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.pnr-line-name {
-  font-family: "GT America", "Inter", Arial, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--vouch-navy);
-}
-.pnr-limit {
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #D8D9CC;
+  border-radius: 3px;
   font-size: 13px;
-  color: var(--ind-mid);
-  font-weight: 600;
-  letter-spacing: 0.02em;
 }
-.pnr-why {
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--vouch-navy);
-}
-.pnr-closing {
-  margin-top: 24px;
-  font-size: 14px;
-  color: var(--vouch-navy);
-}
+.pnr-name { font-weight: 700; color: #0D1B2A; }
+.pnr-limit { display: block; font-size: 11.5px; font-weight: 400; color: #5A6A7A; margin-top: 2px; }
+.pnr-why { color: #2A3A4A; line-height: 1.5; }
 
-/* ========== Footer ========== */
-
-.report-footer {
-  margin-top: 64px;
-  padding: 32px;
-  background: var(--vouch-navy);
-  color: rgba(247, 250, 242, 0.75);
-  font-size: 12px;
-  line-height: 1.55;
-}
-.report-footer .vouch-mark {
-  font-family: "Mirador", "Cormorant Garamond", Georgia, serif;
-  color: var(--vouch-green);
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  margin-bottom: 12px;
-}
-
-/* ========== Print ========== */
-
+/* ===================== PRINT ===================== */
 @media print {
-  @page { size: Letter; margin: 0.5in; }
-  body { background: #fff; font-size: 11pt; }
-  .running-header, .report-nav { display: none !important; }
-  .page-wrap { display: block; max-width: none; padding: 0; }
-  .cover { padding: 36px 28px; margin: 0 0 24px 0; border-radius: 0; }
-  .cover::before { display: none; }
-  .display-headline { font-size: 44pt; }
-  .section-headline { font-size: 28pt; }
-  .report-section { padding: 18px 0 12px 0; page-break-inside: avoid; }
-  .chart-card { height: 320px; page-break-inside: avoid; }
-  .cta-banner { page-break-inside: avoid; }
-  .snapshot-detail.is-open, .risk-detail.is-open { display: table-row !important; }
+  .page-section { min-height: unset; page-break-after: always; border-bottom: none; }
+  .page-section:last-child { page-break-after: avoid; }
+  body { background: #fff; }
+  .bench-canvas { height: 320px !important; }
+  .radar-canvas { height: 240px !important; }
 }
 
-/* ========== Mobile ========== */
-
-@media (max-width: 920px) {
-  .page-wrap { grid-template-columns: 1fr; padding: 0 18px 64px 18px; }
-  .report-nav { position: static; padding-top: 16px; flex-direction: row; flex-wrap: wrap; gap: 6px; }
-  .nav-print { margin-top: 12px; }
-  .cover { padding: 48px 28px; }
+@media (max-width: 900px) {
+  .cover-body, .two-col, .snapshot-cols, .tc-grid { grid-template-columns: 1fr !important; }
+  .section-body { padding: 28px 24px 16px 24px; }
+  .page-hdr { padding: 14px 24px 0 24px; }
+  .plan-section { padding: 0 24px 20px 24px; }
 }
 </style>
 </head>
-<body data-industry="tech_startup">
-  <header class="running-header" role="banner">
-    <div class="running-header-inner">
-      <div class="crumb-strip">Vouch Insurance · CoinX USA · Coverage Analysis</div>
-      <div class="crumb-id">HDG.WEB3.E29F-E56D</div>
+<body>
+
+
+    <section class="page-section cover-page" id="cover">
+      
+    <header class="page-hdr">
+      <div class="page-hdr-inner">
+        <div class="page-hdr-left">
+          <svg width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="71" height="23" rx="1.5" stroke="#0D1B2A" stroke-width="1"/>
+  <text x="36" y="16.5" text-anchor="middle" font-family="'GT America','Inter',Arial,sans-serif" font-weight="800" font-size="12" letter-spacing="0.12em" fill="#0D1B2A">VOUCH</text>
+</svg>
+          <span class="analysis-badge">ANALYSIS</span>
+        </div>
+        <div class="page-hdr-right">COINFLOW LABS &nbsp;·&nbsp; COVERAGE REPORT &nbsp;·&nbsp; <span class='hdr-id'>HDG.WEB3.FA78-F1DC</span></div>
+      </div>
+      <div class="page-hdr-rule"></div>
+    </header>
+      <div class="cover-body">
+        <div class="cover-left">
+          <div class="cover-eyebrow">COVERAGE REPORT</div>
+          <h1 class="cover-headline">Coinflow Labs</h1>
+          <p class="cover-subhead">Renewal program analysis for a next-generation payment service provider operating across traditional card / ACH rails and web3 infrastructure.</p>
+        </div>
+        <div class="cover-right">
+          
+        <div class="cover-meta-block">
+          <div class="cover-meta-label">PREPARED FOR</div>
+          <div class="cover-meta-value">Coinflow Labs Limited</div>
+        </div>
+          
+        <div class="cover-meta-block">
+          <div class="cover-meta-label">POLICY UNDER REVIEW</div>
+          <div class="cover-meta-value">HDG.WEB3.FA78-F1DC</div>
+          <div class="cover-meta-sub">05/15/2025&nbsp;–&nbsp;05/15/2026</div>
+        </div>
+          
+        <div class="cover-meta-block">
+          <div class="cover-meta-label">ISSUED MAY 06, 2026</div>
+          <div class="cover-meta-value">VOUCH INSURANCE SERVICES, INC.</div>
+          <div class="cover-meta-sub">VOUCH.US</div>
+        </div>
+        </div>
+      </div>
+      <div class="cover-dot-field" aria-hidden="true"><svg width="460" height="290" viewBox="0 0 460 290" xmlns="http://www.w3.org/2000/svg" class="dot-svg"><circle cx="0" cy="0" r="2.2" fill="#3BE0AD" opacity="0.0"/><circle cx="22" cy="0" r="2.2" fill="#3BE0AD" opacity="0.02"/><circle cx="44" cy="0" r="2.2" fill="#3BE0AD" opacity="0.03"/><circle cx="66" cy="0" r="2.2" fill="#3BE0AD" opacity="0.05"/><circle cx="88" cy="0" r="2.2" fill="#3BE0AD" opacity="0.07"/><circle cx="110" cy="0" r="2.2" fill="#3BE0AD" opacity="0.08"/><circle cx="132" cy="0" r="2.2" fill="#3BE0AD" opacity="0.1"/><circle cx="154" cy="0" r="2.2" fill="#3BE0AD" opacity="0.12"/><circle cx="176" cy="0" r="2.2" fill="#3BE0AD" opacity="0.13"/><circle cx="198" cy="0" r="2.2" fill="#3BE0AD" opacity="0.15"/><circle cx="220" cy="0" r="2.2" fill="#3BE0AD" opacity="0.17"/><circle cx="242" cy="0" r="2.2" fill="#3BE0AD" opacity="0.18"/><circle cx="264" cy="0" r="2.2" fill="#3BE0AD" opacity="0.2"/><circle cx="286" cy="0" r="2.2" fill="#3BE0AD" opacity="0.21"/><circle cx="308" cy="0" r="2.2" fill="#3BE0AD" opacity="0.23"/><circle cx="330" cy="0" r="2.2" fill="#3BE0AD" opacity="0.25"/><circle cx="352" cy="0" r="2.2" fill="#3BE0AD" opacity="0.26"/><circle cx="374" cy="0" r="2.2" fill="#3BE0AD" opacity="0.28"/><circle cx="396" cy="0" r="2.2" fill="#3BE0AD" opacity="0.3"/><circle cx="418" cy="0" r="2.2" fill="#3BE0AD" opacity="0.31"/><circle cx="440" cy="0" r="2.2" fill="#3BE0AD" opacity="0.33"/><circle cx="462" cy="0" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="0" cy="22" r="2.2" fill="#3BE0AD" opacity="0.04"/><circle cx="22" cy="22" r="2.2" fill="#3BE0AD" opacity="0.06"/><circle cx="44" cy="22" r="2.2" fill="#3BE0AD" opacity="0.07"/><circle cx="66" cy="22" r="2.2" fill="#3BE0AD" opacity="0.09"/><circle cx="88" cy="22" r="2.2" fill="#3BE0AD" opacity="0.1"/><circle cx="110" cy="22" r="2.2" fill="#3BE0AD" opacity="0.12"/><circle cx="132" cy="22" r="2.2" fill="#3BE0AD" opacity="0.14"/><circle cx="154" cy="22" r="2.2" fill="#3BE0AD" opacity="0.15"/><circle cx="176" cy="22" r="2.2" fill="#3BE0AD" opacity="0.17"/><circle cx="198" cy="22" r="2.2" fill="#3BE0AD" opacity="0.19"/><circle cx="220" cy="22" r="2.2" fill="#3BE0AD" opacity="0.2"/><circle cx="242" cy="22" r="2.2" fill="#3BE0AD" opacity="0.22"/><circle cx="264" cy="22" r="2.2" fill="#3BE0AD" opacity="0.24"/><circle cx="286" cy="22" r="2.2" fill="#3BE0AD" opacity="0.25"/><circle cx="308" cy="22" r="2.2" fill="#3BE0AD" opacity="0.27"/><circle cx="330" cy="22" r="2.2" fill="#3BE0AD" opacity="0.29"/><circle cx="352" cy="22" r="2.2" fill="#3BE0AD" opacity="0.3"/><circle cx="374" cy="22" r="2.2" fill="#3BE0AD" opacity="0.32"/><circle cx="396" cy="22" r="2.2" fill="#3BE0AD" opacity="0.34"/><circle cx="418" cy="22" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="440" cy="22" r="2.2" fill="#3BE0AD" opacity="0.37"/><circle cx="462" cy="22" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="0" cy="44" r="2.2" fill="#3BE0AD" opacity="0.08"/><circle cx="22" cy="44" r="2.2" fill="#3BE0AD" opacity="0.09"/><circle cx="44" cy="44" r="2.2" fill="#3BE0AD" opacity="0.11"/><circle cx="66" cy="44" r="2.2" fill="#3BE0AD" opacity="0.13"/><circle cx="88" cy="44" r="2.2" fill="#3BE0AD" opacity="0.14"/><circle cx="110" cy="44" r="2.2" fill="#3BE0AD" opacity="0.16"/><circle cx="132" cy="44" r="2.2" fill="#3BE0AD" opacity="0.18"/><circle cx="154" cy="44" r="2.2" fill="#3BE0AD" opacity="0.19"/><circle cx="176" cy="44" r="2.2" fill="#3BE0AD" opacity="0.21"/><circle cx="198" cy="44" r="2.2" fill="#3BE0AD" opacity="0.23"/><circle cx="220" cy="44" r="2.2" fill="#3BE0AD" opacity="0.24"/><circle cx="242" cy="44" r="2.2" fill="#3BE0AD" opacity="0.26"/><circle cx="264" cy="44" r="2.2" fill="#3BE0AD" opacity="0.28"/><circle cx="286" cy="44" r="2.2" fill="#3BE0AD" opacity="0.29"/><circle cx="308" cy="44" r="2.2" fill="#3BE0AD" opacity="0.31"/><circle cx="330" cy="44" r="2.2" fill="#3BE0AD" opacity="0.32"/><circle cx="352" cy="44" r="2.2" fill="#3BE0AD" opacity="0.34"/><circle cx="374" cy="44" r="2.2" fill="#3BE0AD" opacity="0.36"/><circle cx="396" cy="44" r="2.2" fill="#3BE0AD" opacity="0.37"/><circle cx="418" cy="44" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="440" cy="44" r="2.2" fill="#3BE0AD" opacity="0.41"/><circle cx="462" cy="44" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="0" cy="66" r="2.2" fill="#3BE0AD" opacity="0.12"/><circle cx="22" cy="66" r="2.2" fill="#3BE0AD" opacity="0.13"/><circle cx="44" cy="66" r="2.2" fill="#3BE0AD" opacity="0.15"/><circle cx="66" cy="66" r="2.2" fill="#3BE0AD" opacity="0.17"/><circle cx="88" cy="66" r="2.2" fill="#3BE0AD" opacity="0.18"/><circle cx="110" cy="66" r="2.2" fill="#3BE0AD" opacity="0.2"/><circle cx="132" cy="66" r="2.2" fill="#3BE0AD" opacity="0.21"/><circle cx="154" cy="66" r="2.2" fill="#3BE0AD" opacity="0.23"/><circle cx="176" cy="66" r="2.2" fill="#3BE0AD" opacity="0.25"/><circle cx="198" cy="66" r="2.2" fill="#3BE0AD" opacity="0.26"/><circle cx="220" cy="66" r="2.2" fill="#3BE0AD" opacity="0.28"/><circle cx="242" cy="66" r="2.2" fill="#3BE0AD" opacity="0.3"/><circle cx="264" cy="66" r="2.2" fill="#3BE0AD" opacity="0.31"/><circle cx="286" cy="66" r="2.2" fill="#3BE0AD" opacity="0.33"/><circle cx="308" cy="66" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="330" cy="66" r="2.2" fill="#3BE0AD" opacity="0.36"/><circle cx="352" cy="66" r="2.2" fill="#3BE0AD" opacity="0.38"/><circle cx="374" cy="66" r="2.2" fill="#3BE0AD" opacity="0.4"/><circle cx="396" cy="66" r="2.2" fill="#3BE0AD" opacity="0.41"/><circle cx="418" cy="66" r="2.2" fill="#3BE0AD" opacity="0.43"/><circle cx="440" cy="66" r="2.2" fill="#3BE0AD" opacity="0.45"/><circle cx="462" cy="66" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="0" cy="88" r="2.2" fill="#3BE0AD" opacity="0.15"/><circle cx="22" cy="88" r="2.2" fill="#3BE0AD" opacity="0.17"/><circle cx="44" cy="88" r="2.2" fill="#3BE0AD" opacity="0.19"/><circle cx="66" cy="88" r="2.2" fill="#3BE0AD" opacity="0.2"/><circle cx="88" cy="88" r="2.2" fill="#3BE0AD" opacity="0.22"/><circle cx="110" cy="88" r="2.2" fill="#3BE0AD" opacity="0.24"/><circle cx="132" cy="88" r="2.2" fill="#3BE0AD" opacity="0.25"/><circle cx="154" cy="88" r="2.2" fill="#3BE0AD" opacity="0.27"/><circle cx="176" cy="88" r="2.2" fill="#3BE0AD" opacity="0.29"/><circle cx="198" cy="88" r="2.2" fill="#3BE0AD" opacity="0.3"/><circle cx="220" cy="88" r="2.2" fill="#3BE0AD" opacity="0.32"/><circle cx="242" cy="88" r="2.2" fill="#3BE0AD" opacity="0.34"/><circle cx="264" cy="88" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="286" cy="88" r="2.2" fill="#3BE0AD" opacity="0.37"/><circle cx="308" cy="88" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="330" cy="88" r="2.2" fill="#3BE0AD" opacity="0.4"/><circle cx="352" cy="88" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="374" cy="88" r="2.2" fill="#3BE0AD" opacity="0.43"/><circle cx="396" cy="88" r="2.2" fill="#3BE0AD" opacity="0.45"/><circle cx="418" cy="88" r="2.2" fill="#3BE0AD" opacity="0.47"/><circle cx="440" cy="88" r="2.2" fill="#3BE0AD" opacity="0.48"/><circle cx="462" cy="88" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="0" cy="110" r="2.2" fill="#3BE0AD" opacity="0.19"/><circle cx="22" cy="110" r="2.2" fill="#3BE0AD" opacity="0.21"/><circle cx="44" cy="110" r="2.2" fill="#3BE0AD" opacity="0.23"/><circle cx="66" cy="110" r="2.2" fill="#3BE0AD" opacity="0.24"/><circle cx="88" cy="110" r="2.2" fill="#3BE0AD" opacity="0.26"/><circle cx="110" cy="110" r="2.2" fill="#3BE0AD" opacity="0.28"/><circle cx="132" cy="110" r="2.2" fill="#3BE0AD" opacity="0.29"/><circle cx="154" cy="110" r="2.2" fill="#3BE0AD" opacity="0.31"/><circle cx="176" cy="110" r="2.2" fill="#3BE0AD" opacity="0.32"/><circle cx="198" cy="110" r="2.2" fill="#3BE0AD" opacity="0.34"/><circle cx="220" cy="110" r="2.2" fill="#3BE0AD" opacity="0.36"/><circle cx="242" cy="110" r="2.2" fill="#3BE0AD" opacity="0.37"/><circle cx="264" cy="110" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="286" cy="110" r="2.2" fill="#3BE0AD" opacity="0.41"/><circle cx="308" cy="110" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="330" cy="110" r="2.2" fill="#3BE0AD" opacity="0.44"/><circle cx="352" cy="110" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="374" cy="110" r="2.2" fill="#3BE0AD" opacity="0.47"/><circle cx="396" cy="110" r="2.2" fill="#3BE0AD" opacity="0.49"/><circle cx="418" cy="110" r="2.2" fill="#3BE0AD" opacity="0.51"/><circle cx="440" cy="110" r="2.2" fill="#3BE0AD" opacity="0.52"/><circle cx="462" cy="110" r="2.2" fill="#3BE0AD" opacity="0.54"/><circle cx="0" cy="132" r="2.2" fill="#3BE0AD" opacity="0.23"/><circle cx="22" cy="132" r="2.2" fill="#3BE0AD" opacity="0.25"/><circle cx="44" cy="132" r="2.2" fill="#3BE0AD" opacity="0.26"/><circle cx="66" cy="132" r="2.2" fill="#3BE0AD" opacity="0.28"/><circle cx="88" cy="132" r="2.2" fill="#3BE0AD" opacity="0.3"/><circle cx="110" cy="132" r="2.2" fill="#3BE0AD" opacity="0.31"/><circle cx="132" cy="132" r="2.2" fill="#3BE0AD" opacity="0.33"/><circle cx="154" cy="132" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="176" cy="132" r="2.2" fill="#3BE0AD" opacity="0.36"/><circle cx="198" cy="132" r="2.2" fill="#3BE0AD" opacity="0.38"/><circle cx="220" cy="132" r="2.2" fill="#3BE0AD" opacity="0.4"/><circle cx="242" cy="132" r="2.2" fill="#3BE0AD" opacity="0.41"/><circle cx="264" cy="132" r="2.2" fill="#3BE0AD" opacity="0.43"/><circle cx="286" cy="132" r="2.2" fill="#3BE0AD" opacity="0.45"/><circle cx="308" cy="132" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="330" cy="132" r="2.2" fill="#3BE0AD" opacity="0.48"/><circle cx="352" cy="132" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="374" cy="132" r="2.2" fill="#3BE0AD" opacity="0.51"/><circle cx="396" cy="132" r="2.2" fill="#3BE0AD" opacity="0.53"/><circle cx="418" cy="132" r="2.2" fill="#3BE0AD" opacity="0.54"/><circle cx="440" cy="132" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="132" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="154" r="2.2" fill="#3BE0AD" opacity="0.27"/><circle cx="22" cy="154" r="2.2" fill="#3BE0AD" opacity="0.29"/><circle cx="44" cy="154" r="2.2" fill="#3BE0AD" opacity="0.3"/><circle cx="66" cy="154" r="2.2" fill="#3BE0AD" opacity="0.32"/><circle cx="88" cy="154" r="2.2" fill="#3BE0AD" opacity="0.34"/><circle cx="110" cy="154" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="132" cy="154" r="2.2" fill="#3BE0AD" opacity="0.37"/><circle cx="154" cy="154" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="176" cy="154" r="2.2" fill="#3BE0AD" opacity="0.4"/><circle cx="198" cy="154" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="220" cy="154" r="2.2" fill="#3BE0AD" opacity="0.43"/><circle cx="242" cy="154" r="2.2" fill="#3BE0AD" opacity="0.45"/><circle cx="264" cy="154" r="2.2" fill="#3BE0AD" opacity="0.47"/><circle cx="286" cy="154" r="2.2" fill="#3BE0AD" opacity="0.48"/><circle cx="308" cy="154" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="330" cy="154" r="2.2" fill="#3BE0AD" opacity="0.52"/><circle cx="352" cy="154" r="2.2" fill="#3BE0AD" opacity="0.53"/><circle cx="374" cy="154" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="154" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="154" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="154" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="154" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="176" r="2.2" fill="#3BE0AD" opacity="0.31"/><circle cx="22" cy="176" r="2.2" fill="#3BE0AD" opacity="0.32"/><circle cx="44" cy="176" r="2.2" fill="#3BE0AD" opacity="0.34"/><circle cx="66" cy="176" r="2.2" fill="#3BE0AD" opacity="0.36"/><circle cx="88" cy="176" r="2.2" fill="#3BE0AD" opacity="0.37"/><circle cx="110" cy="176" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="132" cy="176" r="2.2" fill="#3BE0AD" opacity="0.41"/><circle cx="154" cy="176" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="176" cy="176" r="2.2" fill="#3BE0AD" opacity="0.44"/><circle cx="198" cy="176" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="220" cy="176" r="2.2" fill="#3BE0AD" opacity="0.47"/><circle cx="242" cy="176" r="2.2" fill="#3BE0AD" opacity="0.49"/><circle cx="264" cy="176" r="2.2" fill="#3BE0AD" opacity="0.51"/><circle cx="286" cy="176" r="2.2" fill="#3BE0AD" opacity="0.52"/><circle cx="308" cy="176" r="2.2" fill="#3BE0AD" opacity="0.54"/><circle cx="330" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="352" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="374" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="176" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="198" r="2.2" fill="#3BE0AD" opacity="0.35"/><circle cx="22" cy="198" r="2.2" fill="#3BE0AD" opacity="0.36"/><circle cx="44" cy="198" r="2.2" fill="#3BE0AD" opacity="0.38"/><circle cx="66" cy="198" r="2.2" fill="#3BE0AD" opacity="0.4"/><circle cx="88" cy="198" r="2.2" fill="#3BE0AD" opacity="0.41"/><circle cx="110" cy="198" r="2.2" fill="#3BE0AD" opacity="0.43"/><circle cx="132" cy="198" r="2.2" fill="#3BE0AD" opacity="0.45"/><circle cx="154" cy="198" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="176" cy="198" r="2.2" fill="#3BE0AD" opacity="0.48"/><circle cx="198" cy="198" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="220" cy="198" r="2.2" fill="#3BE0AD" opacity="0.51"/><circle cx="242" cy="198" r="2.2" fill="#3BE0AD" opacity="0.53"/><circle cx="264" cy="198" r="2.2" fill="#3BE0AD" opacity="0.54"/><circle cx="286" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="308" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="330" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="352" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="374" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="198" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="220" r="2.2" fill="#3BE0AD" opacity="0.39"/><circle cx="22" cy="220" r="2.2" fill="#3BE0AD" opacity="0.4"/><circle cx="44" cy="220" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="66" cy="220" r="2.2" fill="#3BE0AD" opacity="0.43"/><circle cx="88" cy="220" r="2.2" fill="#3BE0AD" opacity="0.45"/><circle cx="110" cy="220" r="2.2" fill="#3BE0AD" opacity="0.47"/><circle cx="132" cy="220" r="2.2" fill="#3BE0AD" opacity="0.48"/><circle cx="154" cy="220" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="176" cy="220" r="2.2" fill="#3BE0AD" opacity="0.52"/><circle cx="198" cy="220" r="2.2" fill="#3BE0AD" opacity="0.53"/><circle cx="220" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="242" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="264" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="286" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="308" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="330" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="352" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="374" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="220" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="242" r="2.2" fill="#3BE0AD" opacity="0.42"/><circle cx="22" cy="242" r="2.2" fill="#3BE0AD" opacity="0.44"/><circle cx="44" cy="242" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="66" cy="242" r="2.2" fill="#3BE0AD" opacity="0.47"/><circle cx="88" cy="242" r="2.2" fill="#3BE0AD" opacity="0.49"/><circle cx="110" cy="242" r="2.2" fill="#3BE0AD" opacity="0.51"/><circle cx="132" cy="242" r="2.2" fill="#3BE0AD" opacity="0.52"/><circle cx="154" cy="242" r="2.2" fill="#3BE0AD" opacity="0.54"/><circle cx="176" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="198" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="220" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="242" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="264" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="286" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="308" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="330" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="352" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="374" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="242" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="264" r="2.2" fill="#3BE0AD" opacity="0.46"/><circle cx="22" cy="264" r="2.2" fill="#3BE0AD" opacity="0.48"/><circle cx="44" cy="264" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="66" cy="264" r="2.2" fill="#3BE0AD" opacity="0.51"/><circle cx="88" cy="264" r="2.2" fill="#3BE0AD" opacity="0.53"/><circle cx="110" cy="264" r="2.2" fill="#3BE0AD" opacity="0.54"/><circle cx="132" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="154" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="176" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="198" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="220" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="242" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="264" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="286" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="308" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="330" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="352" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="374" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="264" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="0" cy="286" r="2.2" fill="#3BE0AD" opacity="0.5"/><circle cx="22" cy="286" r="2.2" fill="#3BE0AD" opacity="0.52"/><circle cx="44" cy="286" r="2.2" fill="#3BE0AD" opacity="0.53"/><circle cx="66" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="88" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="110" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="132" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="154" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="176" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="198" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="220" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="242" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="264" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="286" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="308" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="330" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="352" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="374" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="396" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="418" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="440" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/><circle cx="462" cy="286" r="2.2" fill="#3BE0AD" opacity="0.55"/></svg></div>
+    </section>
+
+    <section class="page-section" id="recommendation">
+      
+    <header class="page-hdr">
+      <div class="page-hdr-inner">
+        <div class="page-hdr-left">
+          <svg width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="71" height="23" rx="1.5" stroke="#0D1B2A" stroke-width="1"/>
+  <text x="36" y="16.5" text-anchor="middle" font-family="'GT America','Inter',Arial,sans-serif" font-weight="800" font-size="12" letter-spacing="0.12em" fill="#0D1B2A">VOUCH</text>
+</svg>
+          <span class="analysis-badge">ANALYSIS</span>
+        </div>
+        <div class="page-hdr-right">COINFLOW LABS &nbsp;·&nbsp; COVERAGE REPORT &nbsp;·&nbsp; <span class='hdr-id'>HDG.WEB3.FA78-F1DC</span></div>
+      </div>
+      <div class="page-hdr-rule"></div>
+    </header>
+      <div class="section-body two-col">
+        <div class="col-left">
+          <h2 class="section-headline">Our Recommendation</h2>
+          <div class="body-text"><p>Coinflow&#x27;s Web3 Protection Policy was written when the company was smaller and before the PSP side of the business had matured. Since it was bound in May 2025, projected revenue has grown nearly 360% year-over-year — and with that growth has come meaningfully greater exposure to merchant E&amp;O claims, regulatory scrutiny from FinCEN, SEC, and state money transmission regulators, and higher-stakes crypto custody risk. The program needs to be rebuilt around the business Coinflow actually runs today.</p><p>Three structural gaps define the renewal. The policy was designed for a general web3 startup — not a payment service provider that moves real fiat and crypto on behalf of merchants every day. As a result, the coverage that matters most to Coinflow&#x27;s actual risk profile is either absent, sublimited well below the likely loss range, or explicitly excluded by form language targeting the company&#x27;s core operations.</p></div>
+        </div>
+        <div class="col-right">
+          
+        <div class="rec-card">
+          <div class="rec-card-header" style="background:#1E3A2F;">
+            <span class="rec-num">1</span>
+            <span class="rec-card-title">ADD TECH E&AMP;O — STANDALONE, $3–5M</span>
+          </div>
+          <div class="rec-card-body">Coinflow&#x27;s API failures, missed settlement windows, integration errors, or smart contract misfires would almost certainly be framed as professional services claims — and none of those are covered under the current cyber form. This is the single largest gap in the program.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-header" style="background:#C8661A;">
+            <span class="rec-num">2</span>
+            <span class="rec-card-title">INCREASE CYBER CRIME / FTF / SOCIAL ENGINEERING TO $1–2M (FULL LIMIT)</span>
+          </div>
+          <div class="rec-card-body">The current Cyber Crime sublimit is $350K. A single BEC attack targeting a treasury employee — or a vendor-impersonation ACH diversion — commonly produces losses of $500K to $2M for a PSP at Coinflow&#x27;s transaction volume. This is a single-endorsement fix and may not require remarketing the policy.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-header" style="background:#C8384A;">
+            <span class="rec-num">3</span>
+            <span class="rec-card-title">BUY A SPECIALTY CRYPTO / SPECIE POLICY — $2–5M</span>
+          </div>
+          <div class="rec-card-body">The Digital Asset exclusion in the current policy removes coverage for loss of, access to, or destruction of any digital asset Coinflow holds or transmits — including those held for clients. If Coinflow holds, escrows, or transmits digital assets, this exclusion creates a coverage cliff that a standalone specie policy from Evertas, Relm, or Coincover directly addresses.</div>
+        </div>
+          <div class="cta-banner">
+            <div class="cta-text">Renewal is May 2026. Schedule a call with a Vouch advisor today or go to vouch.us.</div>
+            <a class="cta-btn" href="https://vouch.us" target="_blank" rel="noopener">Schedule a call</a>
+          </div>
+        </div>
+      </div>
+      <div class="page-num">PAGE 2</div>
+    </section>
+
+    <section class="page-section" id="coverage-snapshot">
+      
+    <header class="page-hdr">
+      <div class="page-hdr-inner">
+        <div class="page-hdr-left">
+          <svg width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="71" height="23" rx="1.5" stroke="#0D1B2A" stroke-width="1"/>
+  <text x="36" y="16.5" text-anchor="middle" font-family="'GT America','Inter',Arial,sans-serif" font-weight="800" font-size="12" letter-spacing="0.12em" fill="#0D1B2A">VOUCH</text>
+</svg>
+          <span class="analysis-badge">ANALYSIS</span>
+        </div>
+        <div class="page-hdr-right">COINFLOW LABS &nbsp;·&nbsp; COVERAGE REPORT &nbsp;·&nbsp; <span class='hdr-id'>HDG.WEB3.FA78-F1DC</span></div>
+      </div>
+      <div class="page-hdr-rule"></div>
+    </header>
+      <div class="section-body">
+        <h2 class="section-headline">Coinflow Labs's Coverage Snapshot</h2>
+        
+    <div class="snapshot-cols">
+      <div class="snapshot-col">
+        <div class="snapshot-group">
+          <div class="group-hdr">
+            <span class="group-title">Cyber (First + Third Party)</span><span class="group-limit"> · $2,000,000 Aggregate</span>
+          </div>
+          
+          <table class="snap-table">
+            <thead>
+              <tr>
+                <th class="th-area">COVERAGE AREA</th>
+                <th class="th-status">STATUS</th>
+                <th class="th-note">NOTE</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Privacy Liability</td>
+              <td class="snap-status"><span class="pill status-strong">STRONG</span></td>
+              <td class="snap-note">$2M full limit</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Network Security Liability</td>
+              <td class="snap-status"><span class="pill status-strong">STRONG</span></td>
+              <td class="snap-note">$2M full limit</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Privacy Regulatory Liability</td>
+              <td class="snap-status"><span class="pill status-strong">STRONG</span></td>
+              <td class="snap-note">$2M full limit</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>PCI-DSS Fines &amp; Assessments</td>
+              <td class="snap-status"><span class="pill status-strong">STRONG</span></td>
+              <td class="snap-note">$2M full limit</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Breach Response Costs</td>
+              <td class="snap-status"><span class="pill status-strong">STRONG</span></td>
+              <td class="snap-note">$2M full limit</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Cyber Extortion / Ransomware</td>
+              <td class="snap-status"><span class="pill status-strong">STRONG</span></td>
+              <td class="snap-note">$2M full limit</td>
+            </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-bi-waiting-period" aria-expanded="false" aria-controls="row-cyber-first-third-party-bi-waiting-period-detail">
+              <td class="snap-area"><span class="chev">›</span>BI Waiting Period</td>
+              <td class="snap-status"><span class="pill status-gap">GAP</span></td>
+              <td class="snap-note">48 hrs (should be 8–12)</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-bi-waiting-period-detail" data-detail-for="row-cyber-first-third-party-bi-waiting-period">
+                  <td colspan="3"><div class="snap-detail-inner">Most cyber forms in Coinflow&#x27;s tier have moved to an 8–12 hour waiting period for business interruption. A 48-hour waiting period delays recovery and can exclude recoverable losses tied to short outages.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-restoration-period" aria-expanded="false" aria-controls="row-cyber-first-third-party-restoration-period-detail">
+              <td class="snap-area"><span class="chev">›</span>Restoration Period</td>
+              <td class="snap-status"><span class="pill status-gap">GAP</span></td>
+              <td class="snap-note">60 days (market: 180)</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-restoration-period-detail" data-detail-for="row-cyber-first-third-party-restoration-period">
+                  <td colspan="3"><div class="snap-detail-inner">Modern cyber policies extend the period of restoration to 180 days to cover the full tail of a complex breach recovery. 60 days is below market and may strand restoration costs at month three or four.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-cyber-crime-ftf-social-eng" aria-expanded="false" aria-controls="row-cyber-first-third-party-cyber-crime-ftf-social-eng-detail">
+              <td class="snap-area"><span class="chev">›</span>Cyber Crime / FTF / Social Eng.</td>
+              <td class="snap-status"><span class="pill status-gap">GAP</span></td>
+              <td class="snap-note">$350K (PSP needs $1M+)</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-cyber-crime-ftf-social-eng-detail" data-detail-for="row-cyber-first-third-party-cyber-crime-ftf-social-eng">
+                  <td colspan="3"><div class="snap-detail-inner">The current $350K sublimit is materially below typical PSP loss ranges. Vendor-impersonation ACH fraud and treasury BEC commonly produce losses in the $500K–$2M range.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-cyberterrorism-carve-back" aria-expanded="false" aria-controls="row-cyber-first-third-party-cyberterrorism-carve-back-detail">
+              <td class="snap-area"><span class="chev">›</span>Cyberterrorism Carve-back</td>
+              <td class="snap-status"><span class="pill status-gap">GAP</span></td>
+              <td class="snap-note">Not present</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-cyberterrorism-carve-back-detail" data-detail-for="row-cyber-first-third-party-cyberterrorism-carve-back">
+                  <td colspan="3"><div class="snap-detail-inner">Standard war/terrorism exclusions in cyber forms now typically include a carve-back for cyberterrorism. Absent that carve-back, attribution disputes can be used to deny ransomware claims.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-retroactive-date-cyber" aria-expanded="false" aria-controls="row-cyber-first-third-party-retroactive-date-cyber-detail">
+              <td class="snap-area"><span class="chev">›</span>Retroactive Date (Cyber)</td>
+              <td class="snap-status"><span class="pill status-gap">GAP</span></td>
+              <td class="snap-note">&quot;As of inception&quot; — no prior acts</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-retroactive-date-cyber-detail" data-detail-for="row-cyber-first-third-party-retroactive-date-cyber">
+                  <td colspan="3"><div class="snap-detail-inner">Without a prior-acts retro date, claims arising from incidents that started before policy inception (but were not known) may be excluded.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-tracking-tech-pixel-liability" aria-expanded="false" aria-controls="row-cyber-first-third-party-tracking-tech-pixel-liability-detail">
+              <td class="snap-area"><span class="chev">›</span>Tracking Tech / Pixel Liability</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Excluded (#1 plaintiff trend)</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-tracking-tech-pixel-liability-detail" data-detail-for="row-cyber-first-third-party-tracking-tech-pixel-liability">
+                  <td colspan="3"><div class="snap-detail-inner">Tracking-tech / pixel litigation is the #1 cyber litigation trend nationally. Most modern cyber forms include affirmative coverage; the current policy excludes it.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-digital-asset-coverage" aria-expanded="false" aria-controls="row-cyber-first-third-party-digital-asset-coverage-detail">
+              <td class="snap-area"><span class="chev">›</span>Digital Asset Coverage</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Excluded broadly</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-digital-asset-coverage-detail" data-detail-for="row-cyber-first-third-party-digital-asset-coverage">
+                  <td colspan="3"><div class="snap-detail-inner">Common Exclusion 10a–c removes loss of, access to, or destruction of any digital asset, including those held for clients. This is unworkable for a PSP that escrows or transmits crypto.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-digital-asset-regulatory-violations" aria-expanded="false" aria-controls="row-cyber-first-third-party-digital-asset-regulatory-violations-detail">
+              <td class="snap-area"><span class="chev">›</span>Digital Asset Regulatory Violations</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Excluded (SEC/CFTC/FinCEN)</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-digital-asset-regulatory-violations-detail" data-detail-for="row-cyber-first-third-party-digital-asset-regulatory-violations">
+                  <td colspan="3"><div class="snap-detail-inner">Common Exclusion 11 sweeps in SEC, CFTC, FinCEN, OFAC, OCC, FTC, CFPB, and Federal Reserve action on digital assets.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-transferor-errors" aria-expanded="false" aria-controls="row-cyber-first-third-party-transferor-errors-detail">
+              <td class="snap-area"><span class="chev">›</span>Transferor Errors</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Excluded — core PSP risk</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-transferor-errors-detail" data-detail-for="row-cyber-first-third-party-transferor-errors">
+                  <td colspan="3"><div class="snap-detail-inner">Transferor-errors exclusions remove coverage for losses tied to errors in the transfer of value — the entire job of a PSP.</div></td>
+                </tr>
+            <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-third-party-anti-money-laundering" aria-expanded="false" aria-controls="row-cyber-first-third-party-anti-money-laundering-detail">
+              <td class="snap-area"><span class="chev">›</span>Anti-Money Laundering</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Excluded — core PSP risk</td>
+            </tr>
+                <tr class="snap-detail" id="row-cyber-first-third-party-anti-money-laundering-detail" data-detail-for="row-cyber-first-third-party-anti-money-laundering">
+                  <td colspan="3"><div class="snap-detail-inner">AML/KYC exclusions on the form prevent coverage for one of Coinflow&#x27;s primary regulatory exposures.</div></td>
+                </tr></tbody>
+          </table>
+        </div></div>
+      <div class="snapshot-col">
+        <div class="snapshot-group">
+          <div class="group-hdr">
+            <span class="group-title">D&amp;O Liability</span><span class="group-limit"> · $2,000,000 Aggregate</span>
+          </div>
+          
+          <table class="snap-table">
+            <thead>
+              <tr>
+                <th class="th-area">COVERAGE AREA</th>
+                <th class="th-status">STATUS</th>
+                <th class="th-note">NOTE</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>D&amp;O — Side A / B / C</td>
+              <td class="snap-status"><span class="pill status-adequate">ADEQUATE</span></td>
+              <td class="snap-note">$2M; small for a growth-stage raise</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Settlement % (D&amp;O)</td>
+              <td class="snap-status"><span class="pill status-adequate">ADEQUATE</span></td>
+              <td class="snap-note">60% hammer (best is 80%)</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Data Restoration</td>
+              <td class="snap-status"><span class="pill status-adequate">ADEQUATE</span></td>
+              <td class="snap-note">$2M / $20K retention</td>
+            </tr></tbody>
+          </table>
+        </div></div>
     </div>
-  </header>
-
-  <div class="page-wrap">
-    
-    <nav class="report-nav" aria-label="Report sections">
-      <div class="nav-header">Sections</div>
-      <a class="nav-link" href="#cover" data-target="cover"><span class="nav-num">00</span><span class="nav-label">Cover</span></a><a class="nav-link" href="#recommendation" data-target="recommendation"><span class="nav-num">01</span><span class="nav-label">Our Recommendation</span></a><a class="nav-link" href="#coverage-snapshot" data-target="coverage-snapshot"><span class="nav-num">02</span><span class="nav-label">Coverage Snapshot</span></a><a class="nav-link" href="#biggest-risks" data-target="biggest-risks"><span class="nav-num">03</span><span class="nav-label">Biggest Risks</span></a><a class="nav-link" href="#limits-vs-benchmark" data-target="limits-vs-benchmark"><span class="nav-num">04</span><span class="nav-label">Limits vs. Benchmark</span></a><a class="nav-link" href="#program-structure" data-target="program-structure"><span class="nav-num">05</span><span class="nav-label">Program Structure</span></a><a class="nav-link" href="#policies-not-reviewed" data-target="policies-not-reviewed"><span class="nav-num">06</span><span class="nav-label">Outside This Review</span></a>
-      <button class="nav-print" type="button" data-print>
-        <span aria-hidden="true">⎙</span> Print / Save PDF
-      </button>
-    </nav>
-    
-
-    <main class="report-main">
-      
-    <section class="cover" id="cover">
-      <div class="cover-inner">
-        <div class="eyebrow">Coverage Analysis Report</div>
-        <h1 class="display-headline">
-          <span class="hl-block">CoinX USA</span>
-        </h1>
-        <p class="cover-subhead">First-look coverage analysis of CoinX&#x27;s Web3 Protection Policy, benchmarked against Vouch&#x27;s recommendations for Tech E&amp;O and Cyber programs.</p>
-        <div class="cover-meta-grid">
-          
-        <div class="cover-meta-card">
-          <div class="cover-meta-label">Prepared for</div>
-          <div class="cover-meta-value">CoinX USA LLC</div>
-        </div>
         
-          
-        <div class="cover-meta-card">
-          <div class="cover-meta-label">Policy under review</div>
-          <div class="cover-meta-value">HDG.WEB3.E29F-E56D</div>
-          <div class="cover-meta-period">08/19/2025&nbsp;–&nbsp;08/19/2026</div>
+        <div class="snapshot-group">
+          <div class="group-hdr">
+            <span class="group-title">Not Purchased</span>
+          </div>
+          <div class="group-subtitle">Lines Coinflow does not currently carry</div>
+          <table class="snap-table">
+            <thead>
+              <tr>
+                <th class="th-area">COVERAGE AREA</th>
+                <th class="th-status">STATUS</th>
+                <th class="th-note">NOTE</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Tech E&amp;O — Professional Services</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Largest single gap for a PSP</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Media Liability</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Not purchased</td>
+            </tr>
+            <tr class="snap-row">
+              <td class="snap-area"><span class="chev-space"></span>Commercial Crime (standalone)</td>
+              <td class="snap-status"><span class="pill status-critical">CRITICAL</span></td>
+              <td class="snap-note">Not purchased</td>
+            </tr></tbody>
+          </table>
         </div>
-        
-        </div>
-        <div class="cover-issued">Issued May 07, 2026 · Vouch Insurance Services, Inc. · vouch.us</div>
-        <div class="cover-divider"></div>
+        <p class="section-intro">Coinflow&#x27;s current program is a Web3 Protection Policy through United Specialty Insurance Company, underwritten through Corix. A mid-term endorsement in September 2025 doubled the aggregate limit from $1M to $2M across Cyber and D&amp;O. Tech E&amp;O, Media Liability, and Commercial Crime were not purchased.</p>
+        <div class="status-key"><span class="key-label">STATUS KEY</span> &nbsp;<span class="pill status-strong">STRONG</span> meets or exceeds benchmark &nbsp;&nbsp;<span class="pill status-adequate">ADEQUATE</span> functional but improvable &nbsp;&nbsp;<span class="pill status-gap">GAP</span> below standard &nbsp;&nbsp;<span class="pill status-critical">CRITICAL</span> absent or explicitly excluded</div>
       </div>
+      <div class="page-num">PAGE 3</div>
     </section>
-    
 
-    <section class="report-section section-recommendation" id="recommendation">
-      <div class="section-eyebrow">01 — Our Recommendation</div>
-      <h2 class="section-headline"><span class="hl-block">Our Recommendation</span></h2>
-      <div class="section-rule"></div>
-
-      <p class="lede">CoinX&#x27;s Web3 Protection Policy was bound through Arthur J Gallagher with United Specialty Insurance Company, effective 08/19/2025 to 08/19/2026 at a $12,017 total premium. The form does some real work: an 8-hour Cyber business interruption waiting period, $1M Privacy and Network Security Liability, and a standalone Tech E&amp;O tower at $1M with a $25K retention. Compared to where the 2026 market is for a venture-backed web3 platform, several pieces of the program don&#x27;t hold up. This analysis reviews only the policy provided. Other lines a Vouch-recommended program would include are summarized at the end of the report.</p>
-      <p class="lede">Two structural issues define this analysis. First, every primary tower is bound at $1M, and the loss-prone coverages (Cyber Crime, Public Relations) are sublimited well below that. Second, the form carries a stack of web3-targeted exclusions (Tracking Tech, Biometric, AML, ICO, Transferor Errors) that, taken together, neutralize coverage for several of the highest-frequency claim scenarios in crypto today.</p>
-
-      <div class="subhead-eyebrow">Priority recommendations</div>
-        <div class="rec-card">
-          <div class="rec-num">1</div>
-          <div class="rec-body">
-            <div class="rec-title">Increase Tech E&amp;O from $1M to $3M+</div>
-            <div class="rec-detail">$1M is undersized for a web3 platform that holds, transfers, or routes value on behalf of users. A single integration failure, missed settlement window, or smart-contract dispute can burn $1M in defense and indemnity before any settlement. Vouch&#x27;s benchmark for a comparable web3 company is $3M to $5M, with a broad professional services definition and an AI-services carve-in if relevant.</div>
-          </div>
+    <section class="page-section" id="biggest-risks">
+      
+    <header class="page-hdr">
+      <div class="page-hdr-inner">
+        <div class="page-hdr-left">
+          <svg width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="71" height="23" rx="1.5" stroke="#0D1B2A" stroke-width="1"/>
+  <text x="36" y="16.5" text-anchor="middle" font-family="'GT America','Inter',Arial,sans-serif" font-weight="800" font-size="12" letter-spacing="0.12em" fill="#0D1B2A">VOUCH</text>
+</svg>
+          <span class="analysis-badge">ANALYSIS</span>
         </div>
-        
-        <div class="rec-card">
-          <div class="rec-num">2</div>
-          <div class="rec-body">
-            <div class="rec-title">Increase Cyber Crime / Funds Transfer Fraud to $1M+ (full limit)</div>
-            <div class="rec-detail">The current Cyber Crime / Fraud Loss sublimit is $350K. Vouch flags this exact line as the most-negotiated item at renewal and the one carriers default low on. Treasury BEC, vendor-impersonation ACH fraud, and crypto address-poisoning attacks routinely produce $500K to $2M losses for platforms in CoinX&#x27;s tier. This is a single endorsement and usually doesn&#x27;t require remarketing.</div>
-          </div>
-        </div>
-        
-        <div class="rec-card">
-          <div class="rec-num">3</div>
-          <div class="rec-body">
-            <div class="rec-title">Negotiate a cyberterrorism carve-back to the War / Cyber Operation exclusion</div>
-            <div class="rec-detail">Endorsements WEB3 10-0069 and WEB3 10-0070 broadly exclude losses &#x27;arising directly or indirectly from a War or arising from a Cyber Operation,&#x27; including state-directed actions. There&#x27;s no cyberterrorism carve-back. Modern Cyber forms preserve coverage for cyberattacks targeted at the insured even when attribution leads back to a foreign government. Without it, *attribution disputes can be used to deny ransomware claims*.</div>
-          </div>
-        </div>
-        
-        <div class="rec-card">
-          <div class="rec-num">4</div>
-          <div class="rec-body">
-            <div class="rec-title">Negotiate breadth on the Tracking Tech, Biometric, and Transferor Errors exclusions</div>
-            <div class="rec-detail">These three endorsements remove some of the most active claim sources for web3 platforms today. A blanket exclusion can sometimes be reshaped into a sublimited carve-back that preserves coverage for the core operating use cases while excluding the most adverse fact patterns. Worth raising with the underwriter at renewal.</div>
-          </div>
-        </div>
-        
-        <div class="rec-card">
-          <div class="rec-num">5</div>
-          <div class="rec-body">
-            <div class="rec-title">Extend Period of Restoration from 30 days to 180 days</div>
-            <div class="rec-detail">Every BI / CBI line is capped at a 30-day Period of Restoration. Vouch recommends a 180-day standard. Complex breach recoveries (especially when third-party cloud or blockchain-node providers are involved) routinely run past 30 days, and a short restoration period strands the tail of the income loss exactly where recovery costs spike.</div>
-          </div>
-        </div>
-        
-
-      <div class="cta-banner">
-        <div class="cta-text">Renewal is August 2026. Schedule a call with a Vouch advisor today, or visit vouch.us.</div>
-        <a class="cta-button" href="https://vouch.us" target="_blank" rel="noopener">Schedule a call</a>
+        <div class="page-hdr-right">COINFLOW LABS &nbsp;·&nbsp; COVERAGE REPORT &nbsp;·&nbsp; <span class='hdr-id'>HDG.WEB3.FA78-F1DC</span></div>
       </div>
-    </section>
-    
-
-    <section class="report-section section-snapshot" id="coverage-snapshot">
-      <div class="section-eyebrow">02 — Your Coverage Snapshot</div>
-      <h2 class="section-headline"><span class="hl-block">Your Coverage Snapshot</span></h2>
-      <div class="section-rule"></div>
-
-      <p class="lede">This snapshot covers the Web3 Protection Policy CoinX provided to Vouch for review (United Specialty Insurance Company, bound through Arthur J Gallagher Risk Management Services for the 08/19/2025 to 08/19/2026 term). Each tower is at $1M aggregate with $15K to $25K retentions. Tech E&amp;O is purchased at $1M. Seven web3-targeted exclusions on the form materially shape what&#x27;s actually covered when a claim hits.</p>
-
-      
-        <div class="snapshot-group">
+      <div class="page-hdr-rule"></div>
+    </header>
+      <div class="section-body two-col risks-layout">
+        <div class="col-left">
+          <h2 class="section-headline">Coinflow Labs's Biggest Risks</h2>
+          <div class="body-text small"><p>Coinflow&#x27;s risk surface is fundamentally different from a typical SaaS or general web3 startup. Because money moves through the platform — both fiat via ACH and cards, and crypto via on-chain settlement — the company inherits both fiduciary-style exposures (custody, settlement integrity, AML compliance) and technology exposures (API failure, smart contract risk, cloud dependency). No other coverage combination in Coinflow&#x27;s vertical sits at the intersection of PSP, FinTech, and web3 simultaneously.</p><p>The specific regulatory bodies — FinCEN as MSB overseer, state MTL regulators in every state Coinflow touches, the SEC and CFTC on the digital asset side, and OFAC on sanctions screening — create an unusually dense enforcement landscape for a 13-person company. The attack vectors are equally concentrated: Coinflow is a high-value, low-headcount target that processes large merchant settlements with limited internal controls separation.</p></div>
           
-        <div class="group-header">
-          <div class="group-title">Cyber, First Party</div>
-          <div class="group-limit">$1,000,000 aggregate per coverage</div>
+        <div class="radar-wrapper">
+          <canvas id="radarChart" class="radar-canvas" aria-label="Risk radar chart"></canvas>
+          <p class="chart-caption">Inherent risk vs. current coverage strength. Current coverage is weakest where Coinflow is most exposed.</p>
+        </div>
+        </div>
+        <div class="col-right risks-right">
           
-        </div>
-        
-          <table class="snapshot-table">
-            <thead>
-              <tr>
-                <th class="col-area">Coverage area</th>
-                <th class="col-status">Status</th>
-                <th class="col-note">Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-party-bi-security-failure" aria-expanded="false" aria-controls="row-cyber-first-party-bi-security-failure-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>BI, Security Failure</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / 8-hr waiting period</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-first-party-bi-security-failure-detail" data-detail-for="row-cyber-first-party-bi-security-failure">
-                  <td colspan="3"><div class="snapshot-detail-inner">8 hours sits at the better end of the market and aligns with Vouch&#x27;s 10-hour-or-less recommendation. Worth confirming whether 8 hours is clock hours or business hours.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>BI, System Failure</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / 8-hr waiting period</td>
-            </tr>
-            
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-party-contingent-bi-security-failure" aria-expanded="false" aria-controls="row-cyber-first-party-contingent-bi-security-failure-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Contingent BI, Security Failure</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / 8-hr waiting period</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-first-party-contingent-bi-security-failure-detail" data-detail-for="row-cyber-first-party-contingent-bi-security-failure">
-                  <td colspan="3"><div class="snapshot-detail-inner">Critical for cloud-dependent web3 infrastructure where a node provider, RPC service, or custodian outage cascades into CoinX&#x27;s revenue.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Contingent BI, System Failure</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / 8-hr waiting period</td>
-            </tr>
-            
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-party-period-of-restoration" aria-expanded="false" aria-controls="row-cyber-first-party-period-of-restoration-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Period of Restoration</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">30 days (market: 180 days)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-first-party-period-of-restoration-detail" data-detail-for="row-cyber-first-party-period-of-restoration">
-                  <td colspan="3"><div class="snapshot-detail-inner">All BI / CBI lines cap recovery at 30 days. Vouch flags 180 days as the 2026 market standard. *Complex breaches routinely run past 30 days*, and a short restoration period strands the tail of the loss.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Data Restoration</span></td>
-              <td class="snap-status"><span class="status-pill status-adequate">ADEQUATE</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-party-cyber-extortion-ransomware" aria-expanded="false" aria-controls="row-cyber-first-party-cyber-extortion-ransomware-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Cyber Extortion / Ransomware</span></td>
-              <td class="snap-status"><span class="status-pill status-adequate">ADEQUATE</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-first-party-cyber-extortion-ransomware-detail" data-detail-for="row-cyber-first-party-cyber-extortion-ransomware">
-                  <td colspan="3"><div class="snapshot-detail-inner">Confirm ransomware payment is on a &#x27;pay on behalf&#x27; basis (not reimbursement-only) and that digital currency ransom payments are explicitly contemplated.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-party-cyber-crime-fraud-loss" aria-expanded="false" aria-controls="row-cyber-first-party-cyber-crime-fraud-loss-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Cyber Crime / Fraud Loss</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">$350K sublimit (push to $1M+)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-first-party-cyber-crime-fraud-loss-detail" data-detail-for="row-cyber-first-party-cyber-crime-fraud-loss">
-                  <td colspan="3"><div class="snapshot-detail-inner">Vouch flags $250K as the typical default and one of the most-negotiated items at renewal. CoinX&#x27;s $350K is incrementally better but still well below the $1M to $2M loss range typical for funds-transfer fraud against a web3 platform.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Telecommunication Services Loss</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">$350K sublimit</td>
-            </tr>
-            
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Forensic Accounting Costs</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">$50K sublimit</td>
-            </tr>
-            
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Breach Response Costs</span></td>
-              <td class="snap-status"><span class="status-pill status-adequate">ADEQUATE</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-first-party-public-relations-costs" aria-expanded="false" aria-controls="row-cyber-first-party-public-relations-costs-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Public Relations Costs</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">$50K sublimit</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-first-party-public-relations-costs-detail" data-detail-for="row-cyber-first-party-public-relations-costs">
-                  <td colspan="3"><div class="snapshot-detail-inner">$50K covers a small consultant retainer for a few weeks, not a full reputational-event response for a public crypto incident.</div></td>
-                </tr>
-                
-            </tbody>
-          </table>
-        </div>
-        
-        <div class="snapshot-group">
-          
-        <div class="group-header">
-          <div class="group-title">Cyber, Third Party Liability</div>
-          <div class="group-limit">$1,000,000 aggregate per coverage</div>
-          
-        </div>
-        
-          <table class="snapshot-table">
-            <thead>
-              <tr>
-                <th class="col-area">Coverage area</th>
-                <th class="col-status">Status</th>
-                <th class="col-note">Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Network Security Liability</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Privacy Liability</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-cyber-third-party-liability-privacy-regulatory-liability" aria-expanded="false" aria-controls="row-cyber-third-party-liability-privacy-regulatory-liability-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Privacy Regulatory Liability</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-cyber-third-party-liability-privacy-regulatory-liability-detail" data-detail-for="row-cyber-third-party-liability-privacy-regulatory-liability">
-                  <td colspan="3"><div class="snapshot-detail-inner">Confirm regulatory defense costs are within the limit and that the form names CCPA, GDPR, BIPA, and HIPAA exposures explicitly.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>PCI-DSS Fines &amp; Assessments</span></td>
-              <td class="snap-status"><span class="status-pill status-strong">STRONG</span></td>
-              <td class="snap-note">$1M / $15K retention</td>
-            </tr>
-            
-            <tr class="snapshot-row">
-              <td class="snap-area"><span>Public Relations Costs (Liability)</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">$25K sublimit</td>
-            </tr>
-            
-            </tbody>
-          </table>
-        </div>
-        
-        <div class="snapshot-group">
-          
-        <div class="group-header">
-          <div class="group-title">Errors &amp; Omissions Liability</div>
-          <div class="group-limit">$1,000,000 aggregate</div>
-          
-        </div>
-        
-          <table class="snapshot-table">
-            <thead>
-              <tr>
-                <th class="col-area">Coverage area</th>
-                <th class="col-status">Status</th>
-                <th class="col-note">Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-errors-amp-omissions-liability-tech-e-amp-o-professional-services" aria-expanded="false" aria-controls="row-errors-amp-omissions-liability-tech-e-amp-o-professional-services-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Tech E&amp;O, Professional Services</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">$1M / $25K retention (benchmark: $3M to $5M)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-errors-amp-omissions-liability-tech-e-amp-o-professional-services-detail" data-detail-for="row-errors-amp-omissions-liability-tech-e-amp-o-professional-services">
-                  <td colspan="3"><div class="snapshot-detail-inner">Tech E&amp;O is purchased, which is a structural plus relative to many web3 programs at this stage. $1M is undersized for a platform handling user-routed value or token-related services. Vouch benchmarks comparable companies at $3M to $5M.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-errors-amp-omissions-liability-professional-services-definition" aria-expanded="false" aria-controls="row-errors-amp-omissions-liability-professional-services-definition-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Professional Services Definition</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">Confirm breadth of definition</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-errors-amp-omissions-liability-professional-services-definition-detail" data-detail-for="row-errors-amp-omissions-liability-professional-services-definition">
-                  <td colspan="3"><div class="snapshot-detail-inner">Vouch flags narrow / enumerated professional services definitions as a high-risk gap. Confirm that all current and reasonably anticipated services (including any AI-assisted features) fall inside the definition rather than a closed list.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-errors-amp-omissions-liability-retroactive-prior-acts-date" aria-expanded="false" aria-controls="row-errors-amp-omissions-liability-retroactive-prior-acts-date-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Retroactive / Prior Acts Date</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">08/19/2025 (no prior acts)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-errors-amp-omissions-liability-retroactive-prior-acts-date-detail" data-detail-for="row-errors-amp-omissions-liability-retroactive-prior-acts-date">
-                  <td colspan="3"><div class="snapshot-detail-inner">Prior Knowledge Date for E&amp;O and Cyber is 08/19/2025. No prior-acts coverage. Any wrongful act that occurred (but wasn&#x27;t yet known) before policy inception is excluded.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-errors-amp-omissions-liability-ai-coverage-gap" aria-expanded="false" aria-controls="row-errors-amp-omissions-liability-ai-coverage-gap-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>AI-Services Coverage Gap</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">Not addressed on current form</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-errors-amp-omissions-liability-ai-coverage-gap-detail" data-detail-for="row-errors-amp-omissions-liability-ai-coverage-gap">
-                  <td colspan="3"><div class="snapshot-detail-inner">Standard Tech E&amp;O forms were not written with AI risk in mind. Vouch's coverage rubric flags an explicit AI carve-back as a required line item: coverage for claims arising from AI model outputs, hallucinations, biased outputs, training data, and scraping. If CoinX uses AI-assisted compliance screening, fraud detection, or any user-facing AI feature, these exposures fall outside the current form. Emerging AI regulations (FTC enforcement actions, EU AI Act, NYC Local Law 144) are also not addressed. Confirm with the underwriter whether an AI-services endorsement is available or whether an alternative form covers these exposures.</div></td>
-                </tr>
-                
-            </tbody>
-          </table>
-        </div>
-        
-        <div class="snapshot-group">
-          
-        <div class="group-header">
-          <div class="group-title">Web3-Targeted Exclusions</div>
-          
-          <div class="group-subtitle">Endorsements that materially narrow coverage on the form as bound</div>
-        </div>
-        
-          <table class="snapshot-table">
-            <thead>
-              <tr>
-                <th class="col-area">Coverage area</th>
-                <th class="col-status">Status</th>
-                <th class="col-note">Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-tracking-technology-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-tracking-technology-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Tracking Technology Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0098)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-tracking-technology-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-tracking-technology-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Removes coverage for any pixel / tracker / analytics-tag claim, including VPPA, Federal Wiretap Act, and CIPA. *Pixel and tracking-tech litigation is the #1 Cyber litigation trend nationally.* This is one of the most consequential exclusions on the form.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-biometric-data-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-biometric-data-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Biometric Data Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0055)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-biometric-data-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-biometric-data-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Removes coverage for BIPA and similar biometric statutes. Vouch flags Biometric Data Liability as &#x27;Best in Class&#x27; coverage. Without it, statutory damages (which can run into the hundreds of millions) are uninsured.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-anti-money-laundering-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-anti-money-laundering-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Anti-Money Laundering Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0028)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-anti-money-laundering-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-anti-money-laundering-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Removes coverage for any AML / KYC / FinCEN-style obligation or alleged violation. For any web3 platform that touches transfer of value, this is one of the highest-frequency regulatory exposures on the docket.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-transferor-errors-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-transferor-errors-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Transferor Errors Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0025)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-transferor-errors-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-transferor-errors-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Removes coverage for losses tied to a client, customer, or user that transfers or receives virtual currency or tokens based on the fraudulent or dishonest act of a third party. *That&#x27;s the core scam pattern in crypto today*: address poisoning, signature phishing, fake counterparties.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-initial-coin-offering-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-initial-coin-offering-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Initial Coin Offering Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0024)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-initial-coin-offering-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-initial-coin-offering-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Removes coverage for any unregistered ICO. Relevant if CoinX has issued, plans to issue, or supports issuance of any token product.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-war-cyber-operation-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-war-cyber-operation-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>War / Cyber Operation Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-critical">CRITICAL</span></td>
-              <td class="snap-note">No cyberterrorism carve-back (WEB3 10-0069 / 10-0070)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-war-cyber-operation-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-war-cyber-operation-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Sweeps in any loss &#x27;arising directly or indirectly from a War or arising from a Cyber Operation,&#x27; including state-directed actions. No cyberterrorism carve-back. Attribution disputes can be used to deny ransomware claims.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-punitive-damages-removed" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-punitive-damages-removed-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Punitive Damages Removed</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0033)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-punitive-damages-removed-detail" data-detail-for="row-web3-targeted-exclusions-punitive-damages-removed">
-                  <td colspan="3"><div class="snapshot-detail-inner">Punitive damages are explicitly removed from the definition of Damages. Where insurable by law, modern Cyber and E&amp;O forms include them.</div></td>
-                </tr>
-                
-            <tr class="snapshot-row is-expandable" tabindex="0" role="button" data-toggle-row="row-web3-targeted-exclusions-environmental-impact-exclusion" aria-expanded="false" aria-controls="row-web3-targeted-exclusions-environmental-impact-exclusion-detail">
-              <td class="snap-area"><span class="chev" aria-hidden="true">›</span><span>Environmental Impact Exclusion</span></td>
-              <td class="snap-status"><span class="status-pill status-gap">GAP</span></td>
-              <td class="snap-note">Excluded (WEB3 10-0026)</td>
-            </tr>
-            
-                <tr class="snapshot-detail" id="row-web3-targeted-exclusions-environmental-impact-exclusion-detail" data-detail-for="row-web3-targeted-exclusions-environmental-impact-exclusion">
-                  <td colspan="3"><div class="snapshot-detail-inner">Removes coverage for any environmental claim tied to operations, including &#x27;use of electricity.&#x27; Worth confirming whether the language could be invoked against any mining-adjacent or proof-of-work-related allegation.</div></td>
-                </tr>
-                
-            </tbody>
-          </table>
-        </div>
-        
-
-      <div class="status-key">STRONG = aligned with Vouch&#x27;s recommended best practice. ADEQUATE = meets minimum, room to improve. GAP = below benchmark, negotiate at renewal. CRITICAL = material exposure unaddressed on the form reviewed.</div>
-    </section>
-    
-
-    <section class="report-section section-risks" id="biggest-risks">
-      <div class="section-eyebrow">03 — Your Biggest Risks</div>
-      <h2 class="section-headline"><span class="hl-block">Your Biggest Risks</span></h2>
-      <div class="section-rule"></div>
-
-      <p class="lede">CoinX&#x27;s risk profile is shaped by three things at once. It&#x27;s a web3 platform, so it inherits crypto custody, smart-contract, and on-chain settlement exposure. It&#x27;s a U.S.-domiciled platform, so it inherits SEC, FinCEN, OFAC, and state-level regulatory exposure. And, based on the policy form, it&#x27;s a venture-backed early-stage company, so its loss-bearing capacity is limited and a single uninsured event can be a material equity event. The exclusion stack on the current form intersects directly with each of those three risk surfaces.</p>
-      <p class="lede">The most active enforcement bodies for web3 in 2026 are FinCEN (MSB / Bank Secrecy Act), the SEC (token classification and disclosure), the CFTC (digital commodity treatment), state Money Transmission Licensing offices, and OFAC (sanctioned-wallet screening). The form&#x27;s AML, ICO, and Digital Asset Regulatory exclusions remove coverage for the most common allegations from each of those bodies. Plaintiff bars have separately driven a sustained wave of tracking-technology and biometric-statute litigation that&#x27;s now overtaken ransomware as the most active source of cyber-related claims. Both are excluded on the current form.</p>
-
-      
         <table class="risk-table">
           <thead>
             <tr>
-              <th>Risk</th>
-              <th>What it looks like for CoinX</th>
-              <th>Current policy response</th>
+              <th class="th-risk">RISK</th>
+              <th class="th-scenario">WHAT IT LOOKS LIKE FOR COINFLOW LABS</th>
+              <th class="th-response">CURRENT POLICY</th>
             </tr>
           </thead>
           <tbody>
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-tracking-technology-pixel-litigation" aria-expanded="false" aria-controls="risk-tracking-technology-pixel-litigation-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Tracking Technology / Pixel Litigation</strong></td>
-          <td class="risk-scenario">A class-action complaint alleges that pixels, analytics tags, or third-party scripts on CoinX&#x27;s marketing or product surfaces transmitted user data without consent, implicating VPPA, the Federal Wiretap Act, or CIPA.</td>
-          <td class="risk-response">Excluded. Endorsement WEB3 10-0098 removes any claim arising from tracking-technology code, regardless of intent.</td>
+        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-crypto-theft-custody" aria-expanded="false" aria-controls="risk-crypto-theft-custody-detail">
+          <td class="risk-name"><span class="chev">›</span><strong>Crypto Theft / Custody</strong></td>
+          <td class="risk-scenario">Hot or cold wallet compromise. Smart contract exploit on a settlement contract. Private key breach by a contractor — assets held for merchant clients are gone.</td>
+          <td class="risk-response">Excluded broadly. The Digital Asset exclusion (Common Excl. 10a–c) removes loss of, access to, or destruction of any digital asset — including those held for clients.</td>
         </tr>
-        
-            <tr class="risk-detail" id="risk-tracking-technology-pixel-litigation-detail" data-detail-for="risk-tracking-technology-pixel-litigation">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Tracking Technology Exclusion (WEB3 10-0098 03 25).</div></td>
+            <tr class="risk-detail-row" id="risk-crypto-theft-custody-detail" data-detail-for="risk-crypto-theft-custody">
+              <td colspan="3"><div class="snap-detail-inner"><span class="kicker">Policy reference</span>Web3 Protection Policy, Common Exclusions §10(a)–(c).</div></td>
             </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-aml-kyc-regulatory-action" aria-expanded="false" aria-controls="risk-aml-kyc-regulatory-action-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>AML / KYC Regulatory Action</strong></td>
-          <td class="risk-scenario">FinCEN, a state MTL regulator, or a foreign equivalent opens an inquiry alleging insufficient AML / KYC controls or sanctions screening on user transfers.</td>
-          <td class="risk-response">Excluded. Endorsement WEB3 10-0028 removes both the regulatory action and any underlying allegations of money laundering by an insured or other party.</td>
+        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-regulatory-action-web3" aria-expanded="false" aria-controls="risk-regulatory-action-web3-detail">
+          <td class="risk-name"><span class="chev">›</span><strong>Regulatory Action (web3)</strong></td>
+          <td class="risk-scenario">SEC investigation into token classification, FinCEN MSB enforcement, state MTL inquiry, or OFAC violation tied to a sanctioned wallet address Coinflow processed.</td>
+          <td class="risk-response">Excluded. The Digital Asset Regulatory Violation exclusion (Common Excl. 11) sweeps in SEC, CFTC, FinCEN, OFAC, OCC, FTC, CFPB, and Federal Reserve action.</td>
         </tr>
-        
-            <tr class="risk-detail" id="risk-aml-kyc-regulatory-action-detail" data-detail-for="risk-aml-kyc-regulatory-action">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Anti-Money Laundering Exclusion (WEB3 10-0028 01 25).</div></td>
+            <tr class="risk-detail-row" id="risk-regulatory-action-web3-detail" data-detail-for="risk-regulatory-action-web3">
+              <td colspan="3"><div class="snap-detail-inner"><span class="kicker">Policy reference</span>Web3 Protection Policy, Common Exclusions §11.</div></td>
             </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-user-asset-loss-via-third-party-fraud" aria-expanded="false" aria-controls="risk-user-asset-loss-via-third-party-fraud-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>User Asset Loss via Third-Party Fraud</strong></td>
-          <td class="risk-scenario">A CoinX user is socially engineered (address poisoning, signature phishing, fake counterparty) and signs a transaction that drains their wallet. The user sues CoinX alleging failure to warn or detect the fraudulent pattern.</td>
-          <td class="risk-response">Excluded. Endorsement WEB3 10-0025 removes any claim involving a user that transfers or receives virtual currency based on a third party&#x27;s fraudulent or dishonest act, including duty-to-warn theories.</td>
+        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-payment-fraud-at-scale" aria-expanded="false" aria-controls="risk-payment-fraud-at-scale-detail">
+          <td class="risk-name"><span class="chev">›</span><strong>Payment Fraud at Scale</strong></td>
+          <td class="risk-scenario">BEC attack on a treasury employee diverts a $1.2M merchant settlement. Vendor impersonation prompts a fraudulent ACH transfer before callback verification is completed.</td>
+          <td class="risk-response">Capped at $350K via the Cyber Crime sublimit. Vouch benchmarks PSPs at $1M minimum, often $2M. Wire-transfer controls per the application also lack callback verification and separation of authority.</td>
         </tr>
-        
-            <tr class="risk-detail" id="risk-user-asset-loss-via-third-party-fraud-detail" data-detail-for="risk-user-asset-loss-via-third-party-fraud">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Transferor Errors Exclusion (WEB3 10-0025 01 25).</div></td>
-            </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-treasury-funds-transfer-fraud" aria-expanded="false" aria-controls="risk-treasury-funds-transfer-fraud-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Treasury / Funds Transfer Fraud</strong></td>
-          <td class="risk-scenario">A treasury employee receives a vendor-impersonation email and approves a $1.2M wire. Or a BEC chain compromises a multi-step internal approval. Loss is direct, unrecoverable, and outside the wire-callback window.</td>
-          <td class="risk-response">Capped at $350K via the Cyber Crime sublimit. Above that, the loss is uninsured under this policy.</td>
-        </tr>
-        
-            <tr class="risk-detail" id="risk-treasury-funds-transfer-fraud-detail" data-detail-for="risk-treasury-funds-transfer-fraud">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Item 3.D, Cyber Crime / Fraud Loss limit. Item 3.E, Sub-limits, Fraud Loss $350K.</div></td>
-            </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-nation-state-cyber-operation-attribution" aria-expanded="false" aria-controls="risk-nation-state-cyber-operation-attribution-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Nation-State / Cyber Operation Attribution</strong></td>
-          <td class="risk-scenario">A ransomware event hits CoinX. Forensics, public attribution, or a CISA advisory ties the threat actor to a state-affiliated group. The carrier asserts the War / Cyber Operation exclusion.</td>
-          <td class="risk-response">Excluded with no carve-back. The exclusion captures losses &#x27;arising directly or indirectly from&#x27; a War or Cyber Operation, including state-directed Cyber activity.</td>
-        </tr>
-        
-            <tr class="risk-detail" id="risk-nation-state-cyber-operation-attribution-detail" data-detail-for="risk-nation-state-cyber-operation-attribution">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> War and Cyber Operation Exclusion, Cyber First Party / Third Party (WEB3 10-0069 / 10-0070).</div></td>
-            </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-tech-e-amp-o-service-failure-integration-defect" aria-expanded="false" aria-controls="risk-tech-e-amp-o-service-failure-integration-defect-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Tech E&amp;O, Service Failure / Integration Defect</strong></td>
-          <td class="risk-scenario">A protocol upgrade, settlement-routing change, or smart-contract deployment causes a defect that produces user losses or merchant disputes. Plaintiffs frame the claim as professional services failure.</td>
-          <td class="risk-response">Covered under the $1M Tech E&amp;O tower with a $25K retention. Limit is undersized for the typical loss range. Professional services definition needs review for breadth.</td>
-        </tr>
-        
-            <tr class="risk-detail" id="risk-tech-e-amp-o-service-failure-integration-defect-detail" data-detail-for="risk-tech-e-amp-o-service-failure-integration-defect">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Item 3.D, Errors &amp; Omissions Liability $1,000,000 / $25,000.</div></td>
-            </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-ai-services-eo-gap" aria-expanded="false" aria-controls="risk-ai-services-eo-gap-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>AI-Services E&amp;O, Unaddressed Exposure</strong></td>
-          <td class="risk-scenario">CoinX deploys an AI-assisted fraud-detection or compliance-screening tool that produces an incorrect output — a flagged user is wrongly blocked, or a sanctioned wallet passes through undetected. The resulting claim is framed as professional services negligence or regulatory non-compliance.</td>
-          <td class="risk-response">Not addressed. Standard Tech E&amp;O forms do not explicitly cover AI model outputs, hallucinations, or training-data claims. No AI endorsement is present on this form. Coverage turns on how broadly the professional services definition is read.</td>
-        </tr>
-        
-            <tr class="risk-detail" id="risk-ai-services-eo-gap-detail" data-detail-for="risk-ai-services-eo-gap">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Item 3.D, Errors &amp; Omissions Liability. No AI endorsement identified. Confirm whether professional services definition captures AI-assisted operations and whether an AI carve-in endorsement is available at renewal.</div></td>
-            </tr>
-            
-        <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-period-of-restoration-cap" aria-expanded="false" aria-controls="risk-period-of-restoration-cap-detail">
-          <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>Period of Restoration Cap</strong></td>
-          <td class="risk-scenario">A complex breach or extortion event runs longer than 30 days through forensics, recovery, and revenue restoration. The carrier ceases BI / CBI payments at day 31.</td>
-          <td class="risk-response">Restoration capped at 30 days across all BI / CBI lines. Loss tail beyond 30 days is uninsured under this policy.</td>
-        </tr>
-        
-            <tr class="risk-detail" id="risk-period-of-restoration-cap-detail" data-detail-for="risk-period-of-restoration-cap">
-              <td colspan="3"><div class="risk-detail-inner"><span class="kicker">Policy form reference</span> Item 5, Restoration Period (30 Days, all BI / CBI lines).</div></td>
-            </tr>
-            </tbody>
+            <tr class="risk-detail-row" id="risk-payment-fraud-at-scale-detail" data-detail-for="risk-payment-fraud-at-scale">
+              <td colspan="3"><div class="snap-detail-inner"><span class="kicker">Policy reference</span>Cyber Crime / Funds Transfer Fraud Endorsement, Sublimit Schedule.</div></td>
+            </tr></tbody>
         </table>
-        
-      
-        <div class="radar-wrapper">
-          <div class="chart-card">
-            <canvas id="radarChart" aria-label="Inherent risk vs current coverage radar chart"></canvas>
-          </div>
-          <div class="chart-caption">Inherent risk vs. current coverage strength on a 0 to 10 scale. The policy holds up on the standard Cyber bench items (left side) and falls off sharply on the web3-specific exposures (right side).</div>
         </div>
-        
+      </div>
+      <div class="page-num">PAGE 4</div>
     </section>
-    
 
-    <section class="report-section section-benchmark" id="limits-vs-benchmark">
-      <div class="section-eyebrow">04 — Your Limits vs. Benchmark</div>
-      <h2 class="section-headline"><span class="hl-block">Your Limits vs. Benchmark</span></h2>
-      <div class="section-rule"></div>
-
-      <p class="lede">For a venture-backed web3 platform at CoinX&#x27;s stage, Vouch benchmarks the lines on this policy at $3M to $5M per primary tower, with the Cyber Crime sublimit raised to the full Cyber aggregate. The chart below compares the current limits on the Web3 Protection Policy provided for review against Vouch&#x27;s recommended ranges for those same lines.</p>
-
+    <section class="page-section" id="limits-vs-benchmark">
       
-        <div class="benchmark-wrapper">
-          <div class="chart-card chart-card--tall">
-            <canvas id="benchmarkChart" aria-label="Coverage limits vs. recommended benchmark range"></canvas>
-          </div>
-          <div class="benchmark-legend">
-            <span class="legend-swatch swatch-current"></span> Current limit
-            <span class="legend-swatch swatch-recommended"></span> Recommended range
+    <header class="page-hdr">
+      <div class="page-hdr-inner">
+        <div class="page-hdr-left">
+          <svg width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="71" height="23" rx="1.5" stroke="#0D1B2A" stroke-width="1"/>
+  <text x="36" y="16.5" text-anchor="middle" font-family="'GT America','Inter',Arial,sans-serif" font-weight="800" font-size="12" letter-spacing="0.12em" fill="#0D1B2A">VOUCH</text>
+</svg>
+          <span class="analysis-badge">ANALYSIS</span>
+        </div>
+        <div class="page-hdr-right">COINFLOW LABS &nbsp;·&nbsp; COVERAGE REPORT &nbsp;·&nbsp; <span class='hdr-id'>HDG.WEB3.FA78-F1DC</span></div>
+      </div>
+      <div class="page-hdr-rule"></div>
+    </header>
+      <div class="section-body two-col bench-layout">
+        <div class="col-left">
+          <h2 class="section-headline">Limits vs. Benchmark</h2>
+          <p class="body-text">For a $5M-revenue PSP with web3 exposure, Vouch benchmarks the recommended total program at $5M–$10M in combined limits — with separate Tech E&amp;O and Cyber towers and a dedicated specie/digital-asset policy. Coinflow&#x27;s current program totals $2M across all lines in a single shared aggregate, with four key lines unpurchased entirely.</p>
+          
+        <div class="bench-callout">
+          <div class="bench-callout-title">MOST CONSEQUENTIAL LIMIT GAP: CYBER CRIME / FUNDS TRANSFER FRAUD</div>
+          <div class="bench-callout-body">The current sublimit of $350K is well below the typical loss range for a PSP at Coinflow&#x27;s transaction volume. A single BEC attack on a treasury employee or vendor-impersonation ACH fraud commonly ranges $500K–$2M. This is fixable without remarketing — push the current carrier to remove the sublimit and align it with the full $2M Cyber aggregate at renewal.</div>
+        </div>
+        </div>
+        <div class="col-right">
+          
+        <div class="bench-chart-wrap">
+          <canvas id="benchmarkChart" class="bench-canvas" aria-label="Limits vs. benchmark chart"></canvas>
+          <div class="bench-legend">
+            <span class="leg-swatch swatch-recommended"></span> Vouch recommended range
+            <span class="leg-swatch swatch-current"></span> Current limit
           </div>
         </div>
-        
-      
-        <div class="callout">
-          <div class="callout-title">Most consequential limit gap: Cyber Crime / Funds Transfer Fraud sublimit</div>
-          <div class="callout-body">The $350K Cyber Crime sublimit is the single most negotiable item on the program. Vouch identifies $250K as the typical default and the $350K endorsement as incremental at best. Typical loss range for a successful BEC or vendor-impersonation attack on a web3 treasury is $500K to $2M. Pushing the sublimit to the full $1M Cyber aggregate (or higher with a dedicated Crime tower) is normally a single-endorsement negotiation and doesn&#x27;t require remarketing the policy.</div>
         </div>
-        
+      </div>
+      <div class="page-num">PAGE 5</div>
     </section>
-    
 
-    <section class="report-section section-program" id="program-structure">
-      <div class="section-eyebrow">05 — Recommended Program Structure</div>
-      <h2 class="section-headline"><span class="hl-block">Recommended Program Structure</span></h2>
-      <div class="section-rule"></div>
-
-      <p class="lede">The policy provided for review is built around six $1M towers with $15K to $25K retentions, riding a single carrier (United Specialty Insurance Company) through a wholesaler (Corix). The recommended structure splits Tech E&amp;O and Cyber into separately stacked towers, lifts the Cyber Crime sublimit, extends the Period of Restoration, and renegotiates the most consequential exclusions before binding.</p>
-
+    <section class="page-section" id="program-structure">
       
-        <div class="program-table">
-          <div class="prog-row prog-header">
-            <div class="prog-cell">
-              <div class="prog-col-title">Current program</div>
-              <div class="prog-col-sub">$1M per tower, single-carrier, web3 form</div>
+    <header class="page-hdr">
+      <div class="page-hdr-inner">
+        <div class="page-hdr-left">
+          <svg width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="71" height="23" rx="1.5" stroke="#0D1B2A" stroke-width="1"/>
+  <text x="36" y="16.5" text-anchor="middle" font-family="'GT America','Inter',Arial,sans-serif" font-weight="800" font-size="12" letter-spacing="0.12em" fill="#0D1B2A">VOUCH</text>
+</svg>
+          <span class="analysis-badge">ANALYSIS</span>
+        </div>
+        <div class="page-hdr-right">COINFLOW LABS &nbsp;·&nbsp; COVERAGE REPORT &nbsp;·&nbsp; <span class='hdr-id'>HDG.WEB3.FA78-F1DC</span></div>
+      </div>
+      <div class="page-hdr-rule"></div>
+    </header>
+      <div class="section-body two-col prog-layout">
+        <div class="col-left">
+          <h2 class="section-headline">Recommended Program Structure for Coinflow</h2>
+          <div class="body-text">The current program is a single $2M aggregate with Cyber, D&amp;O, and Privacy all sharing the same ceiling — a structure that fails under any compound incident. The recommended structure separates the towers by coverage type, fills the four unpurchased lines, and adds a specialty specie layer for digital-asset custody exposure.</div>
+          <a class="cta-standalone" href="https://vouch.us" target="_blank" rel="noopener">Schedule a call with a Vouch advisor today or go to vouch.us.</a>
+        </div>
+        <div class="col-right">
+          
+        <div class="prog-table">
+          <div class="prog-headers">
+            <div class="prog-hdr">
+              <div class="prog-hdr-title">CURRENT PROGRAM</div>
+              <div class="prog-hdr-sub">$2M shared aggregate</div>
             </div>
-            <div class="prog-arrow" aria-hidden="true"></div>
-            <div class="prog-cell">
-              <div class="prog-col-title">Recommended program</div>
-              <div class="prog-col-sub">$5M+ stacked, web3-aware program</div>
+            <div class="prog-arrow-hdr"></div>
+            <div class="prog-hdr">
+              <div class="prog-hdr-title">RECOMMENDED PROGRAM</div>
+              <div class="prog-hdr-sub">$5M+ stacked, web3-aware</div>
             </div>
           </div>
           
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Tech E&amp;O, $1M / $25K retention</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Tech E&amp;O, $3M to $5M (broad professional services definition)</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Cyber 1st Party, $1M / 8-hr waiting / 30-day restoration</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Combined Cyber, $3M to $5M (180-day restoration, cyberterrorism carve-back)</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Cyber 3rd Party, $1M</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Cyber Crime / FTF, $1M to $2M (full limit)</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Cyber Crime sublimit, $350K</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Privacy Regulatory, $2M to $5M</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Privacy Regulatory, $1M</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Web3 exclusions (Tracking Tech, AML, Transferor Errors), affirmative or carve-back where possible</div>
-            </div>
-            
-            <div class="prog-row">
-              <div class="prog-cell prog-current">Tracking Tech, Biometric, AML, ICO, Transferor Errors, War / Cyber Operation, EXCLUDED</div>
-              <div class="prog-arrow" aria-hidden="true">→</div>
-              <div class="prog-cell prog-recommended">Specie / Digital Asset, considered separately if CoinX holds or transmits assets</div>
-            </div>
-            
+        <div class="prog-row">
+          <div class="prog-cell prog-purchased">D&amp;O Liability — $2M</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">Tech E&amp;O — $3–5M (standalone)</div>
         </div>
-        
-      
-        <div class="subhead-eyebrow">90-day action plan</div>
-        <table class="plan-table">
-          <thead>
-            <tr><th>When</th><th>Action</th><th>Detail</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="plan-when">Now to 30 days · May to June 2026</td>
-              <td class="plan-action"><span class="plan-pill">Engage</span></td>
-              <td class="plan-detail">Vouch specialty team submits CoinX to web3-capable Tech E&amp;O markets (Beazley Web3, Relm, Resilience, At-Bay) with a $3M minimum target and a broad professional services definition. CoinX provides updated application data: revenue, headcount, transaction volume, contract schedule, security controls. Output: formal indications from at least two carriers.</td>
-            </tr>
-            
-            <tr>
-              <td class="plan-when">30 to 60 days · June to July 2026</td>
-              <td class="plan-action"><span class="plan-pill">Negotiate</span></td>
-              <td class="plan-detail">On the existing program (or its replacement): (1) push Cyber Crime sublimit to $1M+, (2) extend Period of Restoration to 180 days, (3) add cyberterrorism carve-back, (4) negotiate breadth on Tracking Tech, Biometric, and Transferor Errors exclusions, (5) restore prior-acts retro date if continuity allows. Output: bindable terms or a clear remarketing path.</td>
-            </tr>
-            
-            <tr>
-              <td class="plan-when">60 to 90 days · July to August 2026</td>
-              <td class="plan-action"><span class="plan-pill">Bind</span></td>
-              <td class="plan-detail">CoinX implements compensating controls flagged in the underwriting application: wire-transfer callback verification, separation of authority, EDR, phishing training. These reduce denial risk under any &#x27;failure to maintain security&#x27; clause and meaningfully lower renewal premium. Vouch and CoinX bind the reshaped program ahead of the 08/19/2026 renewal and establish a 30-day claims-advocacy check-in cadence.</td>
-            </tr>
-            </tbody>
-        </table>
-        
-
-      <div class="cta-banner">
-        <div class="cta-text">Schedule a call with a Vouch advisor today, or visit vouch.us.</div>
-        <a class="cta-button" href="https://vouch.us" target="_blank" rel="noopener">Schedule a call</a>
+        <div class="prog-row">
+          <div class="prog-cell prog-purchased">Cyber 1st Party — $2M</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">Combined Cyber — $3–5M</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-cell prog-purchased">Cyber 3rd Party — $2M</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">FTF / Social Eng. — $1–2M (full limit)</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-cell prog-not-purchased">Tech E&amp;O — NOT PURCHASED</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">Commercial Crime — $1–2M</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-cell prog-not-purchased">Commercial Crime — NOT PURCHASED</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">Specie / Digital Asset — $2–5M</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-cell prog-not-purchased">Media — NOT PURCHASED</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">Media Liability — $1–2M</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-cell prog-excluded">Digital Asset — EXCLUDED</div>
+          <div class="prog-arrow">&#8594;</div>
+          <div class="prog-cell prog-rec">D&amp;O — $3–5M</div>
+        </div>
+        </div>
+        </div>
       </div>
-    </section>
-    
-
-    <section class="report-section section-pnr" id="policies-not-reviewed">
-      <div class="section-eyebrow">06 — Coverage Lines Outside This Review</div>
-      <h2 class="section-headline"><span class="hl-block">Coverage Lines Outside This Review</span></h2>
-      <div class="section-rule"></div>
-
-      <p class="lede">A complete insurance program for a venture-backed web3 platform typically extends beyond the lines covered by this Web3 Protection Policy. The lines below are ones a Vouch-recommended program would include for a company of CoinX&#x27;s apparent type and stage.</p>
       
-        <div class="scope-caveat">
-          <div class="scope-caveat-label">Scope note</div>
-          <div class="scope-caveat-body">Vouch was provided only the Web3 Protection Policy reviewed in this report. CoinX may already carry one or more of these lines under separate carriers or programs not shared with Vouch. Where that&#x27;s the case, the relevant line should be reviewed against the same benchmarks. Where it isn&#x27;t, the line is a coverage gap.</div>
+        <div class="plan-section">
+          <div class="plan-eyebrow">90-DAY ACTION PLAN</div>
+          <table class="plan-table">
+            <thead><tr><th>WHEN</th><th>ACTION</th><th>DETAIL</th></tr></thead>
+            <tbody>
+            <tr>
+              <td class="plan-when">Now – 30 days · May–Jun 2026</td>
+              <td class="plan-action"><span class="plan-badge">Engage</span></td>
+              <td class="plan-detail">Vouch specialty team markets standalone Tech E&amp;O with web3-capable carriers — Beazley Web3, Relm, Resilience, At-Bay. Target a $3M minimum limit. Coinflow provides updated application data and contract schedule. Output: formal E&amp;O indication from at least two carriers.</td>
+            </tr>
+            <tr>
+              <td class="plan-when">30–60 days · Jun–Jul 2026</td>
+              <td class="plan-action"><span class="plan-badge">Negotiate</span></td>
+              <td class="plan-detail">Submit specie / digital-asset application to Evertas or Relm for $2–5M crypto theft + custody coverage. In parallel, negotiate with current carrier to: (1) increase Cyber Crime sublimit to $1M+, (2) reduce BI waiting period to 8–12 hours, (3) extend Restoration Period to 180 days, (4) add cyberterrorism carve-back, (5) establish full prior-acts retro. Output: binding terms or clear remarketing decision.</td>
+            </tr>
+            <tr>
+              <td class="plan-when">60–90 days · Jul–Sep 2026</td>
+              <td class="plan-action"><span class="plan-badge">Bind</span></td>
+              <td class="plan-detail">Coinflow IT/Sec implements compensating controls flagged in the policy application: EDR, phishing training, wire-transfer callback protocol, and separation of authority. These reduce denial risk under &#x27;failure to maintain security&#x27; clauses and lower renewal premiums. Vouch and Coinflow bind the reshaped program and establish a 30-day check-in cadence with Vouch&#x27;s claims advocacy team for incident-response readiness.</td>
+            </tr></tbody>
+          </table>
         </div>
-        
-
-      <div class="pnr-table">
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">Directors &amp; Officers Liability</div>
-            <div class="pnr-limit">$3M to $5M</div>
-          </div>
-          <div class="pnr-why">Defends individual directors, officers, and the company itself against claims by investors, regulators, employees, and counterparties. Standard backstop for any venture-backed company. Securities-related claims and regulatory inquiries are the most common loss types at this stage.</div>
-        </div>
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">Employment Practices Liability (EPL)</div>
-            <div class="pnr-limit">$1M to $3M</div>
-          </div>
-          <div class="pnr-why">Covers wrongful termination, discrimination, harassment, and related employment claims. Often packaged with D&amp;O at this stage but worth confirming as a separate line item.</div>
-        </div>
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">Commercial Crime / Employee Theft</div>
-            <div class="pnr-limit">$1M to $2M</div>
-          </div>
-          <div class="pnr-why">First-dollar protection against employee dishonesty, forgery, and alteration. Particularly important in a small finance / treasury function where separation-of-authority controls are difficult to fully implement. Distinct from the Cyber Crime sublimit, which addresses external funds-transfer fraud. <strong>Form type matters as much as limit:</strong> a discovery-form Crime policy covers losses <em>discovered</em> during the policy period regardless of when they occurred; a loss-sustained form only covers losses that occur <em>and</em> are discovered during the same policy period. Vouch strongly prefers discovery-form. Additionally, social engineering and funds-transfer fraud sublimits should be negotiated to parity with the primary Crime limit — carriers default these low ($250K is common), but mid-market BEC losses routinely exceed $1M. Confirm the form also includes an explicit cryptocurrency / digital asset endorsement, as standard Crime forms exclude crypto custody loss by default.</div>
-        </div>
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">Standalone Media Liability</div>
-            <div class="pnr-limit">$1M to $2M</div>
-          </div>
-          <div class="pnr-why">Defends libel, slander, copyright, and trademark claims tied to content the company publishes (blog, social, marketing, conference talks, paper-publishing). The Web3 Protection Policy reviewed does not include media coverage. Vouch flags Media as a &#x27;must have&#x27; for tech companies with public media exposure.</div>
-        </div>
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">Specie / Digital Asset Custody</div>
-            <div class="pnr-limit">$2M to $5M</div>
-          </div>
-          <div class="pnr-why">Specialty coverage for theft, loss, or destruction of digital assets, including assets held on behalf of users. The Web3 Protection Policy reviewed does not provide affirmative coverage for digital-asset custody loss. Carriers in this space include Evertas, Relm, and Coincover.</div>
-        </div>
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">General Liability / Property</div>
-            
-          </div>
-          <div class="pnr-why">Standard business owner coverage for premises liability, bodily injury to third parties, and physical property loss. Almost always carried but worth confirming alongside the rest of the program.</div>
-        </div>
-        
-        <div class="pnr-row">
-          <div class="pnr-line">
-            <div class="pnr-line-name">Workers&#x27; Compensation</div>
-            
-          </div>
-          <div class="pnr-why">State-required coverage for employee workplace injury. Required in essentially every state where CoinX has employees.</div>
-        </div>
-        
-      </div>
-
-      <p class="pnr-closing">If any of these lines is already in place, share the policy with Vouch and we&#x27;ll fold it into the same coverage analysis. If not, the lines above are the natural next conversations after the Web3 Protection Policy renewal.</p>
+      <div class="page-num">PAGE 6</div>
     </section>
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
-      <footer class="report-footer">
-        <div class="vouch-mark">VOUCH</div>
-        <div>Coverage Analysis Report · prepared by Vouch Insurance Services, Inc.</div>
-        <div>Vouch Specialty Insurance Services, LLC (CA License #6004944) is a licensed insurance producer. A complete list of state licenses is available at vouch.us/legal/licenses. Insurance products are underwritten by various insurance carriers, not by Vouch. This material is for informational purposes only and does not create a binding contract or alter policy terms. Coverage availability, terms, and conditions vary by state and are subject to underwriting review and approval.</div>
-        <div style="margin-top:10px; opacity:0.6;">© Vouch, Inc. All rights reserved.</div>
-      </footer>
-    </main>
-  </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  new Chart(document.getElementById('radarChart'), {"type": "radar", "data": {"labels": ["Payment Fraud / FTF", "Crypto Theft / Custody", "Regulatory (SEC, FinCEN, OFAC)", "Smart Contract / Smart Money Errors", "AML / KYC Violations", "Tracking Tech / Pixel Litigation", "Ransomware / Business Interrupt", "Vendor / 4th-Party Cloud Outage"], "datasets": [{"label": "Inherent risk exposure", "data": [9, 9, 9, 7, 9, 8, 7, 7], "borderColor": "#CA6233", "backgroundColor": "#CA623322", "borderWidth": 2, "pointBackgroundColor": "#CA6233", "pointRadius": 3}, {"label": "Current coverage strength", "data": [3, 1, 1, 2, 1, 1, 5, 4], "borderColor": "#19A078", "backgroundColor": "#3BE0AD2A", "borderWidth": 2, "pointBackgroundColor": "#19A078", "pointRadius": 3}]}, "options": {"responsive": true, "maintainAspectRatio": false, "scales": {"r": {"min": 0, "max": 10, "ticks": {"stepSize": 2, "color": "#8A8A7A", "backdropColor": "transparent"}, "grid": {"color": "#D8D9CC"}, "angleLines": {"color": "#D8D9CC"}, "pointLabels": {"color": "#0D1B2A", "font": {"size": 11, "family": "Inter, Arial, sans-serif"}}}}, "plugins": {"legend": {"position": "bottom", "labels": {"color": "#0D1B2A", "font": {"size": 11, "family": "Inter, Arial, sans-serif"}, "boxWidth": 12, "padding": 16}}, "tooltip": {"backgroundColor": "#0D1B2A", "titleColor": "#F0F1E5", "bodyColor": "#F0F1E5", "padding": 10, "cornerRadius": 3}}}});
 
-  <script>
+var benchCfg = {"type": "bar", "data": {"labels": ["Tech E&O", "Cyber \u2014 1st Party", "Cyber \u2014 3rd Party Liability", "Cyber Crime / FTF / Soc. Eng.", "Commercial Crime", "Digital Asset / Specie", "Media Liability", "D&O"], "datasets": [{"label": "Recommended range (PSP + web3 profile)", "data": [[3, 5], [3, 5], [3, 5], [1, 2], [1, 2], [2, 5], [1, 2], [3, 5]], "backgroundColor": "#3BE0AD55", "borderColor": "#19A078", "borderWidth": 1, "borderRadius": 2, "borderSkipped": false, "barPercentage": 0.55, "categoryPercentage": 0.85}, {"label": "Current limit", "data": [0, 2, 2, 0.35, 0, 0, 0, 2], "backgroundColor": "#0D1B2A", "borderColor": "#0D1B2A", "borderWidth": 1, "borderRadius": 2, "barPercentage": 0.55, "categoryPercentage": 0.85}]}, "options": {"indexAxis": "y", "responsive": true, "maintainAspectRatio": false, "scales": {"x": {"beginAtZero": true, "title": {"display": true, "text": "Aggregate Limit ($M)", "color": "#0D1B2A", "font": {"size": 11}}, "grid": {"color": "#D8D9CC"}, "ticks": {"color": "#0D1B2A", "font": {"size": 11}}}, "y": {"grid": {"color": "transparent"}, "ticks": {"color": "#0D1B2A", "font": {"size": 11}}}}, "plugins": {"legend": {"position": "bottom", "labels": {"color": "#0D1B2A", "boxWidth": 12, "font": {"size": 11}, "padding": 16}}, "tooltip": {"backgroundColor": "#0D1B2A", "titleColor": "#F0F1E5", "bodyColor": "#F0F1E5", "padding": 10, "cornerRadius": 3}, "datalabels": {"display": false}}}};
+// Register NOT PURCHASED label plugin
+var notPurchased = {"0": "NOT PURCHASED", "4": "NOT PURCHASED", "5": "NOT PURCHASED", "6": "NOT PURCHASED"};
+var npPlugin = {
+  id: 'notPurchasedLabels',
+  afterDraw: function(chart) {
+    var ctx = chart.ctx;
+    var meta = chart.getDatasetMeta(1); // current limit dataset
+    ctx.save();
+    ctx.font = 'bold 9px Inter, Arial, sans-serif';
+    ctx.fillStyle = '#D0433A';
+    ctx.textAlign = 'left';
+    Object.keys(notPurchased).forEach(function(idx) {
+      var i = parseInt(idx);
+      var bar = meta.data[i];
+      if (!bar) return;
+      var x = chart.scales.x.getPixelForValue(0) + 4;
+      var y = bar.y;
+      ctx.fillText(notPurchased[idx], x, y + 4);
+    });
+    ctx.restore();
+  }
+};
+new Chart(document.getElementById('benchmarkChart'), Object.assign(benchCfg, {plugins: (benchCfg.plugins||[]).concat ? [...(benchCfg.plugins||[]), npPlugin] : [npPlugin]}));
 
-      const radarConfig = {"type": "radar", "data": {"labels": ["Privacy & Regulatory Defense", "Network Security Liability", "Ransomware / Business Interrupt", "Tech E&O / Service Failure", "Funds Transfer Fraud / BEC", "Tracking Tech / Pixel Litigation", "AML / Regulatory (FinCEN, OFAC)", "Transferor / User Fraud"], "datasets": [{"label": "Inherent risk exposure", "data": [8, 7, 7, 7, 8, 8, 8, 8], "borderColor": "#CA6233", "backgroundColor": "#CA623326", "borderWidth": 2, "pointBackgroundColor": "#CA6233", "pointRadius": 3}, {"label": "Current coverage strength", "data": [7, 7, 5, 4, 3, 1, 1, 1], "borderColor": "#1A5745", "backgroundColor": "#3BE0AD33", "borderWidth": 2, "pointBackgroundColor": "#19A078", "pointRadius": 3}]}, "options": {"responsive": true, "maintainAspectRatio": false, "scales": {"r": {"min": 0, "max": 10, "ticks": {"stepSize": 2, "color": "#A8A8A8", "backdropColor": "transparent"}, "grid": {"color": "#EBEAE8"}, "angleLines": {"color": "#EBEAE8"}, "pointLabels": {"color": "#0F1C2C", "font": {"size": 12, "family": "Inter, GT America, Arial, sans-serif"}}}}, "plugins": {"legend": {"position": "top", "labels": {"color": "#0F1C2C", "font": {"size": 12, "family": "Inter, GT America, Arial, sans-serif"}, "boxWidth": 14}}, "tooltip": {"backgroundColor": "#0F1C2C", "titleColor": "#F7FAF2", "bodyColor": "#F7FAF2", "padding": 10, "cornerRadius": 4}}}};
-      const benchmarkConfig = {"type": "bar", "data": {"labels": ["Tech E&O", "Cyber, 1st Party", "Cyber, 3rd Party Liability", "Cyber Crime / FTF / Soc. Eng.", "Privacy Regulatory"], "datasets": [{"label": "Recommended range", "data": [[3, 5], [3, 5], [3, 5], [1, 2], [2, 5]], "backgroundColor": "#EDC2A2", "borderColor": "#CA6233", "borderWidth": 1, "borderRadius": 2, "borderSkipped": false, "barPercentage": 0.6, "categoryPercentage": 0.85}, {"label": "Current limit", "data": [1, 1, 1, 0.35, 1], "backgroundColor": "#0F1C2C", "borderColor": "#0F1C2C", "borderWidth": 1, "borderRadius": 2, "barPercentage": 0.6, "categoryPercentage": 0.85}]}, "options": {"indexAxis": "y", "responsive": true, "maintainAspectRatio": false, "scales": {"x": {"beginAtZero": true, "title": {"display": true, "text": "Aggregate limit ($M)", "color": "#0F1C2C"}, "grid": {"color": "#EBEAE8"}, "ticks": {"color": "#0F1C2C"}}, "y": {"grid": {"color": "transparent"}, "ticks": {"color": "#0F1C2C", "font": {"size": 12}}}}, "plugins": {"legend": {"position": "bottom", "labels": {"color": "#0F1C2C", "boxWidth": 14}}, "tooltip": {"backgroundColor": "#0F1C2C", "titleColor": "#F7FAF2", "bodyColor": "#F7FAF2", "padding": 10, "cornerRadius": 4, "callbacks": {}}}}};
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
 
-      function initCharts() {
-        if (typeof Chart === 'undefined') { return; }
-        if (radarConfig && document.getElementById('radarChart')) {
-          new Chart(document.getElementById('radarChart'), radarConfig);
-        }
-        if (benchmarkConfig && document.getElementById('benchmarkChart')) {
-          // Custom tooltip for floating benchmark bars
-          if (benchmarkConfig.options && benchmarkConfig.options.plugins && benchmarkConfig.options.plugins.tooltip) {
-            benchmarkConfig.options.plugins.tooltip.callbacks = {
-              label: function(ctx) {
-                const v = ctx.raw;
-                if (Array.isArray(v)) {
-                  return ctx.dataset.label + ': $' + v[0] + 'M – $' + v[1] + 'M';
-                }
-                return ctx.dataset.label + ': $' + v + 'M';
-              }
-            };
-          }
-          new Chart(document.getElementById('benchmarkChart'), benchmarkConfig);
-        }
-      }
-    
+  // Expandable rows
+  document.querySelectorAll('[data-toggle-row]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('data-toggle-row');
+      var detail = document.getElementById(id + '-detail');
+      if (!detail) return;
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !open);
+      detail.classList.toggle('is-open', !open);
+    });
+    btn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
 
-      // Sticky nav scroll-spy
-      function setupScrollSpy() {
-        const sections = document.querySelectorAll('.report-section, .cover');
-        const links = document.querySelectorAll('.nav-link');
-        if (!sections.length || !links.length) return;
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const id = entry.target.id;
-              links.forEach(l => l.classList.toggle('is-active', l.dataset.target === id));
-            }
-          });
-        }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-        sections.forEach(s => observer.observe(s));
-      }
-
-      // Expandable rows (snapshot + risks)
-      function setupExpandableRows() {
-        document.querySelectorAll('[data-toggle-row]').forEach((row) => {
-          const id = row.dataset.toggleRow;
-          const detail = document.querySelector('[data-detail-for="' + id + '"]');
-          if (!detail) return;
-          const toggle = () => {
-            const open = detail.classList.toggle('is-open');
-            row.setAttribute('aria-expanded', String(open));
-          };
-          row.addEventListener('click', toggle);
-          row.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-          });
-        });
-      }
-
-      // Print button
-      function setupPrint() {
-        document.querySelectorAll('[data-print]').forEach(btn => {
-          btn.addEventListener('click', () => window.print());
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        setupScrollSpy();
-        setupExpandableRows();
-        setupPrint();
-        initCharts();
-      });
-    
-  </script>
+});
+</script>
 </body>
 </html>
