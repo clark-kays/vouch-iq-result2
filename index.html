@@ -970,6 +970,17 @@ body { padding-top: 0; }
 .gloss:hover .gloss-tip,
 .gloss:focus .gloss-tip { display: block; }
 
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 </head>
 <body>
@@ -1510,7 +1521,35 @@ body { padding-top: 0; }
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  new Chart(document.getElementById('radarChart'), {"type": "radar", "data": {"labels": ["Payment Fraud / FTF", "Crypto Theft / Custody", "Regulatory (SEC, FinCEN, OFAC)", "Smart Contract / Smart Money Errors", "AML / KYC Violations", "Tracking Tech / Pixel Litigation", "Ransomware / Business Interrupt", "Vendor / 4th-Party Cloud Outage"], "datasets": [{"label": "Inherent risk exposure", "data": [9, 9, 9, 7, 9, 8, 7, 7], "borderColor": "#CA6233", "backgroundColor": "#CA623322", "borderWidth": 2, "pointBackgroundColor": "#CA6233", "pointRadius": 3}, {"label": "Current coverage strength", "data": [3, 1, 1, 2, 1, 1, 5, 4], "borderColor": "#19A078", "backgroundColor": "#3BE0AD2A", "borderWidth": 2, "pointBackgroundColor": "#19A078", "pointRadius": 3}]}, "options": {"responsive": true, "maintainAspectRatio": true, "aspectRatio": 1, "layout": {"padding": {"left": 70, "right": 70, "top": 16, "bottom": 16}}, "scales": {"r": {"min": 0, "max": 10, "ticks": {"stepSize": 2, "color": "#8A8A7A", "backdropColor": "transparent"}, "grid": {"color": "#D8D9CC"}, "angleLines": {"color": "#D8D9CC"}, "pointLabels": {"color": "#0D1B2A", "font": {"size": 11, "family": "Inter, Arial, sans-serif"}}}}, "plugins": {"legend": {"position": "bottom", "labels": {"color": "#0D1B2A", "font": {"size": 11, "family": "Inter, Arial, sans-serif"}, "boxWidth": 12, "padding": 16}}, "tooltip": {"backgroundColor": "#0D1B2A", "titleColor": "#F0F1E5", "bodyColor": "#F0F1E5", "padding": 10, "cornerRadius": 3}}}});
+  // Radar: lazy-init so animation fires on scroll-into-view
+  var radarInited = false;
+  var radarObserver = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !radarInited) {
+      radarInited = true;
+      radarObserver.disconnect();
+      new Chart(document.getElementById('radarChart'), {
+        "type": "radar",
+        "data": {
+          "labels": ["Payment Fraud / FTF", "Crypto Theft / Custody", "Regulatory (SEC, FinCEN, OFAC)", "Smart Contract / Smart Money Errors", "AML / KYC Violations", "Tracking Tech / Pixel Litigation", "Ransomware / Business Interrupt", "Vendor / 4th-Party Cloud Outage"],
+          "datasets": [
+            {"label": "Inherent risk exposure", "data": [9, 9, 9, 7, 9, 8, 7, 7], "borderColor": "#CA6233", "backgroundColor": "#CA623322", "borderWidth": 2, "pointBackgroundColor": "#CA6233", "pointRadius": 3},
+            {"label": "Current coverage strength", "data": [3, 1, 1, 2, 1, 1, 5, 4], "borderColor": "#19A078", "backgroundColor": "#3BE0AD2A", "borderWidth": 2, "pointBackgroundColor": "#19A078", "pointRadius": 3}
+          ]
+        },
+        "options": {
+          "responsive": true, "maintainAspectRatio": true, "aspectRatio": 1,
+          "animation": { "duration": 1400, "easing": "easeInOutQuart" },
+          "layout": {"padding": {"left": 70, "right": 70, "top": 16, "bottom": 16}},
+          "scales": {"r": {"min": 0, "max": 10, "ticks": {"stepSize": 2, "color": "#8A8A7A", "backdropColor": "transparent"}, "grid": {"color": "#D8D9CC"}, "angleLines": {"color": "#D8D9CC"}, "pointLabels": {"color": "#0D1B2A", "font": {"size": 11, "family": "Inter, Arial, sans-serif"}}}},
+          "plugins": {
+            "legend": {"position": "bottom", "labels": {"color": "#0D1B2A", "font": {"size": 11, "family": "Inter, Arial, sans-serif"}, "boxWidth": 12, "padding": 16}},
+            "tooltip": {"backgroundColor": "#0D1B2A", "titleColor": "#F0F1E5", "bodyColor": "#F0F1E5", "padding": 10, "cornerRadius": 3}
+          }
+        }
+      });
+    }
+  }, { threshold: 0.25 });
+  radarObserver.observe(document.getElementById('radarChart'));
 
 // Error bar chart — Limits vs. Benchmark
 var ebData = [
@@ -1532,6 +1571,9 @@ var currentPoints = ebData.map(function(d, i) {
 }).filter(Boolean);
 var yLabels = ebData.map(function(d) { return d.label; }).reverse();
 
+var ebProgress = 0;
+var benchChart = null;
+
 var errorBarPlugin = {
   id: 'errorBarPlugin',
   afterDraw: function(chart) {
@@ -1542,10 +1584,13 @@ var errorBarPlugin = {
     ctx.strokeStyle = '#19A078';
     ctx.lineWidth = 2;
     rangePoints.forEach(function(d) {
-      var xMin = xScale.getPixelForValue(d.xMin);
-      var xMax = xScale.getPixelForValue(d.xMax);
+      var xMinFull = xScale.getPixelForValue(d.xMin);
+      var xMaxFull = xScale.getPixelForValue(d.xMax);
+      var xCenter  = (xMinFull + xMaxFull) / 2;
+      var xMin = xCenter - (xCenter - xMinFull) * ebProgress;
+      var xMax = xCenter + (xMaxFull - xCenter) * ebProgress;
       var y    = yScale.getPixelForValue(d.y);
-      var cap  = 7;
+      var cap  = 7 * ebProgress;
       ctx.beginPath(); ctx.moveTo(xMin, y); ctx.lineTo(xMax, y); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(xMin, y - cap); ctx.lineTo(xMin, y + cap); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(xMax, y - cap); ctx.lineTo(xMax, y + cap); ctx.stroke();
@@ -1561,85 +1606,137 @@ var errorBarPlugin = {
   }
 };
 
-new Chart(document.getElementById('benchmarkChart'), {
-  type: 'scatter',
-  data: {
-    datasets: [
-      {
-        label: 'Recommended range (PSP + web3 profile)',
-        data: rangePoints,
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
-        pointRadius: 0,
-        pointHoverRadius: 0
-      },
-      {
-        label: 'Current limit',
-        data: currentPoints,
-        backgroundColor: '#0D1B2A',
-        borderColor: '#0D1B2A',
-        pointRadius: 6,
-        pointHoverRadius: 8,
-        pointStyle: 'circle'
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        beginAtZero: true,
-        max: 5.5,
-        title: {display: true, text: 'Aggregate Limit ($M)', color: '#0D1B2A', font: {size: 11}},
-        grid: {color: '#D8D9CC'},
-        ticks: {color: '#0D1B2A', font: {size: 11}}
-      },
-      y: {
-        min: -0.5,
-        max: 7.5,
-        grid: {color: '#D8D9CC'},
-        ticks: {
-          color: '#0D1B2A',
-          font: {size: 11},
-          stepSize: 1,
-          callback: function(value) { return yLabels[Math.round(value)] || ''; }
+function initBenchmarkChart() {
+  benchChart = new Chart(document.getElementById('benchmarkChart'), {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {
+          label: 'Recommended range (PSP + web3 profile)',
+          data: rangePoints,
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+          pointRadius: 0,
+          pointHoverRadius: 0
+        },
+        {
+          label: 'Current limit',
+          data: currentPoints,
+          backgroundColor: '#0D1B2A',
+          borderColor: '#0D1B2A',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          pointStyle: 'circle'
         }
-      }
+      ]
     },
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {color: '#0D1B2A', boxWidth: 12, font: {size: 11}, padding: 16}
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {
+        duration: 900,
+        easing: 'easeOutQuart',
+        onComplete: function() {
+          // kick off error-bar expand after dots finish
+          var startTime = null;
+          var ebDuration = 800;
+          function animEb(ts) {
+            if (!startTime) startTime = ts;
+            ebProgress = Math.min((ts - startTime) / ebDuration, 1);
+            // ease out cubic
+            var p = 1 - Math.pow(1 - ebProgress, 3);
+            ebProgress = p;
+            if (benchChart) benchChart.update('none');
+            if (p < 1) requestAnimationFrame(animEb);
+          }
+          requestAnimationFrame(animEb);
+        }
       },
-      tooltip: {
-        backgroundColor: '#0D1B2A',
-        titleColor: '#F0F1E5',
-        bodyColor: '#F0F1E5',
-        padding: 10,
-        cornerRadius: 3,
-        callbacks: {
-          title: function(items) {
-            var raw = items[0].raw;
-            return yLabels[Math.round(raw.y)] || '';
-          },
-          label: function(item) {
-            if (item.datasetIndex === 0) {
-              var r = ebData[7 - Math.round(item.raw.y)].range;
-              return 'Recommended: $' + r[0] + 'M – $' + r[1] + 'M';
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 5.5,
+          title: {display: true, text: 'Aggregate Limit ($M)', color: '#0D1B2A', font: {size: 11}},
+          grid: {color: '#D8D9CC'},
+          ticks: {color: '#0D1B2A', font: {size: 11}}
+        },
+        y: {
+          min: -0.5,
+          max: 7.5,
+          grid: {color: '#D8D9CC'},
+          ticks: {
+            color: '#0D1B2A',
+            font: {size: 11},
+            stepSize: 1,
+            callback: function(value) { return yLabels[Math.round(value)] || ''; }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {color: '#0D1B2A', boxWidth: 12, font: {size: 11}, padding: 16}
+        },
+        tooltip: {
+          backgroundColor: '#0D1B2A',
+          titleColor: '#F0F1E5',
+          bodyColor: '#F0F1E5',
+          padding: 10,
+          cornerRadius: 3,
+          callbacks: {
+            title: function(items) {
+              var raw = items[0].raw;
+              return yLabels[Math.round(raw.y)] || '';
+            },
+            label: function(item) {
+              if (item.datasetIndex === 0) {
+                var r = ebData[7 - Math.round(item.raw.y)].range;
+                return 'Recommended: $' + r[0] + 'M – $' + r[1] + 'M';
+              }
+              return 'Current: $' + item.raw.x + 'M';
             }
-            return 'Current: $' + item.raw.x + 'M';
           }
         }
       }
-    }
-  },
-  plugins: [errorBarPlugin]
-});
+    },
+    plugins: [errorBarPlugin]
+  });
+}
+
+// Lazy-init: fire animation when the chart scrolls into view
+var benchInited = false;
+var benchObserver = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting && !benchInited) {
+    benchInited = true;
+    benchObserver.disconnect();
+    initBenchmarkChart();
+  }
+}, { threshold: 0.2 });
+benchObserver.observe(document.getElementById('benchmarkChart'));
 
 
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Scroll-reveal for rec-cards and risk rows
+  var revealEls = document.querySelectorAll('.rec-card, .risk-row');
+  revealEls.forEach(function(el, i) {
+    el.classList.add('reveal-fade');
+    el.style.transitionDelay = (i * 55) + 'ms';
+  });
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(function(el) { revealObserver.observe(el); });
+});
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -1664,7 +1761,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <section class="page-section carrier-section" id="carrier-match">
       <div class="carrier-inner">
         <div class="carrier-eyebrow">Carrier Match</div>
-        <div class="carrier-stat">3</div>
+        <div class="carrier-stat" data-count-target="3">1</div>
         <div class="carrier-headline">Insurers are good options for Coinflow.</div>
         <p class="carrier-body">Based on Coinflow's risk profile, transaction volume, and web3 exposure, Vouch has identified specialty markets with the appetite and capacity to provide meaningful coverage — at competitive terms. Vouch's direct relationships with these carriers mean faster quotes, better pricing, and an advocate in your corner at claims time.</p>
 
@@ -1699,6 +1796,36 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </section>
 
+
+<script>
+(function() {
+  var statEl = document.querySelector('.carrier-stat[data-count-target]');
+  if (!statEl) return;
+  var target = parseInt(statEl.getAttribute('data-count-target'), 10);
+  var countStart = 1;
+  var duration = 400; // ms — fast tick
+  var started = false;
+
+  function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+  function runCount(startTime, ts) {
+    var elapsed = ts - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = easeOutQuart(progress);
+    statEl.textContent = Math.round(countStart + eased * (target - countStart));
+    if (progress < 1) requestAnimationFrame(function(ts2) { runCount(startTime, ts2); });
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !started) {
+      started = true;
+      observer.disconnect();
+      requestAnimationFrame(function(ts) { runCount(ts, ts); });
+    }
+  }, { threshold: 0.4 });
+  observer.observe(statEl);
+})();
+</script>
 
 <script>
 // ── Section nav ──────────────────────────────────────────────
