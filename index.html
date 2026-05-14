@@ -464,6 +464,7 @@ body { padding-top: 0; }
 .bench-legend {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 18px;
   font-size: 11px;
   color: #3A4A5A;
@@ -471,14 +472,35 @@ body { padding-top: 0; }
 }
 .leg-swatch {
   display: inline-block;
-  width: 20px;
-  height: 10px;
-  border-radius: 2px;
+  width: 24px;
+  height: 3px;
+  border-radius: 0;
   margin-right: 5px;
   vertical-align: middle;
+  position: relative;
 }
-.swatch-recommended { background: #3BE0AD55; border: 1px solid #19A078; }
-.swatch-current     { background: #0D1B2A; }
+.swatch-recommended {
+  background: #7A4FA5;
+  position: relative;
+}
+.swatch-recommended::before,
+.swatch-recommended::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 8px;
+  background: #7A4FA5;
+}
+.swatch-recommended::before { left: 0; }
+.swatch-recommended::after  { right: 0; }
+.swatch-current {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0D1B2A;
+}
 
 /* ===================== PROGRAM STRUCTURE ===================== */
 .prog-table { border: 1px solid #D8D9CC; border-radius: 3px; overflow: hidden; }
@@ -833,7 +855,17 @@ body { padding-top: 0; }
   border-top-color: transparent;
   border-bottom-color: #0D1B2A;
 }
-
+/* Shift tooltip left if near right edge of viewport */
+.ins-tooltip.tip-right::after {
+  left: auto;
+  right: 0;
+  transform: translateX(0);
+}
+.ins-tooltip.tip-right::before {
+  left: auto;
+  right: 10px;
+  transform: translateX(0);
+}
 </style>
 </head>
 <body>
@@ -1006,14 +1038,14 @@ body { padding-top: 0; }
             <span class="rec-num">3</span>
             <span class="rec-card-title">Address the Social Engineering gap: Crime excludes SE, Cyber caps it at $500K</span>
           </div>
-          <div class="rec-card-body">Crime IA C explicitly excludes Social Engineering; Cyber IA 9 caps SE+FTF at $500K combined. Net program SE coverage: $450K. Increase Cyber SE+FTF sublimit to $5M and add an SE endorsement to the Crime policy, or replace with a Crime form that covers SE.</div>
+          <div class="rec-card-body">Crime IA C explicitly excludes Social Engineering; Cyber IA 9 caps SE+FTF at $500K combined. Net program SE coverage: $450K after $50K retention. A single pharma sponsor wire transfer can exceed this limit. Increase Cyber SE+FTF sublimit to $5M and add an SE endorsement to the Crime policy, or replace with a Crime form that covers SE.</div>
         </div>
         <div class="rec-card">
           <div class="rec-card-header" style="background:#1E3A2F;">
             <span class="rec-num">4</span>
             <span class="rec-card-title">Negotiate EPL retention down from $75K (and $150K for high earners)</span>
           </div>
-          <div class="rec-card-body">Base EPL retention of $75K is above benchmark ($25K–$50K). The High Wage Earner endorsement (EMB-H41201-1222) doubles it to $150K for employees earning over $150K — covering most of the likely claimant population. Negotiate base retention to $50K and remove the High Wage Earner endorsement at renewal.</div>
+          <div class="rec-card-body">Base EPL retention of $75K is above benchmark ($25K–$50K). The High Wage Earner endorsement (EMB-H41201-1222) doubles it to $150K for employees earning over $150K — covering most of the likely claimant population. At $150K retention, most EPL claims will be substantially self-insured. Negotiate base retention to $50K and remove the High Wage Earner endorsement at renewal.</div>
         </div>
         <div class="rec-card">
           <div class="rec-card-header" style="background:#7A4FA5;">
@@ -1390,7 +1422,7 @@ body { padding-top: 0; }
             <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-employment-practices-liability-high-wage-earner-retention-emb-h41201-1222" aria-expanded="false" aria-controls="row-employment-practices-liability-high-wage-earner-retention-emb-h41201-1222-detail">
               <td class="snap-area"><span class="chev" aria-hidden="true">›</span>High Wage Earner Retention (EMB-H41201-1222)</td>
               <td class="snap-status"><span class="pill status-gap">GAP</span></td>
-              <td class="snap-note">Endorsement EMB-H41201-1222 increases EPL retention to $150K for claims by employees earning &gt;$150K annually. Affects the majority of Curebase&#x27;s clinical and engineering leadership.</td>
+              <td class="snap-note">Endorsement EMB-H41201-1222 doubles the retention from $75K to $150K for claims by employees earning &gt;$150K annually. At $150K retention, most EPL claims will be substantially self-insured. Affects the majority of Curebase&#x27;s clinical and engineering leadership.</td>
             </tr>
             <tr class="snap-detail" id="row-employment-practices-liability-high-wage-earner-retention-emb-h41201-1222-detail" data-detail-for="row-employment-practices-liability-high-wage-earner-retention-emb-h41201-1222">
               <td colspan="3"><div class="snap-detail-inner">EMB-H41201-1222 doubles retention to $150K for employees earning &gt;$150K — covering most of the leadership and senior technical staff most likely to bring EPL claims. Most EPL losses will be substantially self-insured. Remove at renewal.</div></td>
@@ -1398,7 +1430,7 @@ body { padding-top: 0; }
             <tr class="snap-row is-expandable" tabindex="0" role="button" data-toggle-row="row-employment-practices-liability-wage-amp-hour-class-action-defense" aria-expanded="false" aria-controls="row-employment-practices-liability-wage-amp-hour-class-action-defense-detail">
               <td class="snap-area"><span class="chev" aria-hidden="true">›</span>Wage &amp; Hour / Class Action Defense</td>
               <td class="snap-status"><span class="pill status-gap">GAP</span></td>
-              <td class="snap-note">IA C (Wage &amp; Hour) is defense costs only, sublimited to $100K. California operations create independent contractor misclassification and overtime exposure. $100K is inadequate for CA class action defense.</td>
+              <td class="snap-note">IA C (Wage &amp; Hour) is defense costs only, sublimited to $100K. California Wage &amp; Hour class action defense costs routinely exceed $100K before a case reaches class certification. $100K is inadequate for CA class action defense.</td>
             </tr>
             <tr class="snap-detail" id="row-employment-practices-liability-wage-amp-hour-class-action-defense-detail" data-detail-for="row-employment-practices-liability-wage-amp-hour-class-action-defense">
               <td colspan="3"><div class="snap-detail-inner">Wage &amp; Hour (IA C) is defense costs only, capped at $100K. For a California employer with clinical coordinators and remote workers, AB5 misclassification and overtime class action defense routinely exceeds this limit before certification. Increase to $500K defense-costs-only at renewal.</div></td>
@@ -1542,7 +1574,7 @@ body { padding-top: 0; }
         </tr>
         <tr class="risk-row is-expandable" tabindex="0" role="button" data-toggle-row="risk-hhs-ocr-enforcement-hipaa-breach" aria-expanded="false" aria-controls="risk-hhs-ocr-enforcement-hipaa-breach-detail">
           <td class="risk-name"><span class="chev" aria-hidden="true">›</span><strong>HHS OCR Enforcement / HIPAA Breach</strong></td>
-          <td class="risk-scenario">A breach exposes PHI for thousands of trial participants. HHS OCR opens an investigation and imposes civil monetary penalties. Sponsors file BAA contractual claims.</td>
+          <td class="risk-scenario">A breach exposes PHI for thousands of trial participants. HHS OCR opens an investigation and imposes civil monetary penalties up to $1.9M per violation category per year. Sponsors file BAA contractual claims.</td>
           <td class="risk-response">AMBIGUOUS. HIPAA not named in Regulatory Action definition — OCR enforcement coverage unconfirmed. BAA contractual claims covered under IA 2 at $5M. Side C provides no entity regulatory coverage.</td>
         </tr>
         <tr class="risk-detail-row" id="risk-hhs-ocr-enforcement-hipaa-breach-detail" data-detail-for="risk-hhs-ocr-enforcement-hipaa-breach">
@@ -1626,7 +1658,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="bench-chart-wrap">
           <canvas id="benchmarkChart" class="bench-canvas" aria-label="Limits vs. benchmark chart"></canvas>
           <div class="bench-legend">
-            <span class="leg-swatch swatch-recommended"></span> Vouch recommended range
+            <span class="leg-swatch swatch-recommended"></span> Recommended range
             <span class="leg-swatch swatch-current"></span> Current limit
           </div>
         </div>
@@ -1723,7 +1755,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         },
         plugins: {
-          legend: {position: 'bottom', labels: {color: '#0D1B2A', boxWidth: 12, font: {size: 11}, padding: 16}},
+          legend: {display: false},
           tooltip: {
             backgroundColor: '#0D1B2A', titleColor: '#F0F1E5', bodyColor: '#F0F1E5',
             padding: 10, cornerRadius: 3,
@@ -2130,6 +2162,25 @@ document.addEventListener('DOMContentLoaded', function() {
     { pattern: '\boccurrence\b', flags: 'i', tip: 'Occurrence Policy: Coverage triggers when the underlying act occurs, regardless of when the claim is reported. Provides broader long-tail protection than claims-made forms.' },
     { pattern: 'Cyber', flags: '', tip: 'Cyber Insurance: Covers financial losses from data breaches, ransomware, network security failures, and cyber crime. Includes first-party (costs to your company) and third-party (claims against your company) coverage.' },
     { pattern: 'Crime', flags: '', tip: 'Commercial Crime: Covers direct loss of money, securities, or property from theft, fraud, and dishonest acts including employee theft, BEC, and social engineering.' },
+    // Additional terms from requested list
+    { pattern: '\\bCGL\\b', flags: '', tip: 'Commercial General Liability (CGL): Covers third-party bodily injury and property damage claims.' },
+    { pattern: '\\bBOP\\b', flags: '', tip: 'Business Owner\'s Policy (BOP): A bundled policy combining general liability and property coverage.' },
+    { pattern: 'Business Interruption', flags: 'i', tip: 'Business Interruption: Covers lost revenue and extra expenses when operations are disrupted by a covered event.' },
+    { pattern: 'Dependent Business Interruption', flags: 'i', tip: 'Dependent Business Interruption: Covers lost income when a third-party vendor or cloud provider suffers an outage that disrupts the insured\'s operations.' },
+    { pattern: '\\bBAA\\b', flags: '', tip: 'Business Associate Agreement (BAA): A HIPAA-required contract between a covered entity and a vendor that handles protected health information.' },
+    { pattern: '\\bPHI\\b', flags: '', tip: 'Protected Health Information (PHI): Individually identifiable health data regulated under HIPAA.' },
+    { pattern: '\\bHIPAA\\b', flags: '', tip: 'HIPAA (Health Insurance Portability and Accountability Act): Federal law governing the privacy and security of protected health information.' },
+    { pattern: '\\bHITECH\\b', flags: '', tip: 'HITECH (Health Information Technology for Economic and Clinical Health Act): Expanded HIPAA\'s breach notification and enforcement provisions.' },
+    { pattern: '\\bFTF\\b', flags: '', tip: 'Funds Transfer Fraud (FTF): Unauthorized transfer of money initiated through fraudulent instructions to a financial institution.' },
+    { pattern: 'Cyber Extortion', flags: 'i', tip: 'Cyber Extortion: Coverage for costs associated with ransomware attacks, including ransom payments (with insurer consent) and negotiation expenses.' },
+    { pattern: '\\bPCI\\b', flags: '', tip: 'PCI (Payment Card Industry): Industry standards (PCI-DSS) for protecting cardholder data; fines and assessments can follow a breach.' },
+    { pattern: '\\bGDPR\\b', flags: '', tip: 'GDPR (General Data Protection Regulation): EU law governing personal data privacy with fines up to 4% of global annual revenue.' },
+    { pattern: '\\bCCPA\\b', flags: '', tip: 'CCPA (California Consumer Privacy Act): California law granting consumers rights over their personal data.' },
+    { pattern: '\\bDCT\\b', flags: '', tip: 'Decentralized Clinical Trial (DCT): A clinical trial model that uses digital tools and remote monitoring to conduct trial activities outside traditional clinical sites.' },
+    { pattern: 'Insuring Agreement', flags: 'i', tip: 'Insuring Agreement: The section of a policy that defines what the insurer agrees to cover — each numbered IA is a separate coverage grant.' },
+    { pattern: 'Additional Insured', flags: 'i', tip: 'Additional Insured: A party added to a policy who receives some of the named insured\'s coverage — commonly required by contracts.' },
+    { pattern: 'Primary Non-Contributory', flags: 'i', tip: 'Primary Non-Contributory: Policy language requiring this policy to pay before any other coverage the additional insured may have.' },
+    { pattern: 'HHS OCR', flags: 'i', tip: 'HHS OCR (U.S. Dept. of Health & Human Services Office for Civil Rights): The agency that enforces HIPAA and investigates data breaches involving PHI.' },
   ];
 
   function escapeRegex(str) {
@@ -2250,7 +2301,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, {passive: false});
 
-    // Flip tooltips near top of viewport on hover too
+    // Flip tooltips near top of viewport, shift left if near right edge
     document.body.addEventListener('mouseover', function(e) {
       var el = e.target.closest('.ins-tooltip');
       if (el) {
@@ -2259,6 +2310,14 @@ document.addEventListener('DOMContentLoaded', function() {
           el.classList.add('tip-below');
         } else {
           el.classList.remove('tip-below');
+        }
+        // Right-edge detection: if bubble would overflow, anchor it to the right
+        var tipWidth = 320; // max-width of tooltip
+        var midX = rect.left + rect.width / 2;
+        if (midX + tipWidth / 2 > window.innerWidth - 12) {
+          el.classList.add('tip-right');
+        } else {
+          el.classList.remove('tip-right');
         }
       }
     });
